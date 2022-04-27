@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Bellefair&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;700&family=Roboto&display=swap');
+
+$font-primary: 'Noto Sans', sans-serif;
+
+$body-color:(
+    "base": #0F0F10,
+    "light": #1E2022,
+    "lighter": #5A5E65
+);
+
+$primary-color: (
+    "light": #3988F6,
+    "dark": #1E5AAC
+);
+
+$status-color: (
+    "success": #5FBB46,
+    "warning": #FFC416,
+    "error": #EC493B
+);

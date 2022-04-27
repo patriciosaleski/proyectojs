@@ -1,0 +1,52 @@
+@mixin flex ($direction: row, $justify: flex-start, $align: flex-start, $gap: 0) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+    gap: $gap;
+}
+
+@mixin grid($col: 0, $row: 0, $csize: 1fr, $rsize: 1fr, $justify-c: start, $align-c: center, $rgap: 0) {
+    display: grid;
+    grid-template-columns: repeat($col, $csize);
+    grid-template-rows: repeat($row, $rsize);
+    justify-content: $justify-c;
+    align-content: $align-c;
+    row-gap: $rgap;
+}
+
+@mixin push--auto {
+    margin: {
+        left: auto;
+        right: auto;
+    }
+}
+
+@mixin size ($width: false, $height: false) {
+    @if $width {width: $width;}
+    @if $height { height: $height;}
+}
+
+$font--weight: (
+    light: 300,
+    regular: 400,
+    semi: 500,
+    bold: 700
+);
+
+@mixin primary-font ($size: false, $color: false, $weight: false, 
+                    $align:false, $lh: false, $ls: false){
+    font-family: 'Noto Sans', sans-serif;
+    @if $size { font-size: $size; }
+    @if $color { color: $color; }
+    @if $weight { font-weight: map-get($font--weight, $weight); }
+    @if $align { text-align: $align; }
+    @if $lh { line-height: $lh; }
+    @if $ls { letter-spacing: $ls; }
+}
+
+@mixin blur {
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    background: rgba(151, 151, 151, 0.34);
+}

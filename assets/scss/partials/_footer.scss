@@ -1,0 +1,46 @@
+// Footer properties
+
+footer {
+    .footer {
+        @include flex($justify:space-between, $align:center);
+        @include size(100vw,8rem);
+        padding: 0 2vw;
+        background: rgba(151, 151, 151, 0.7);
+        @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+            @include blur;
+        }
+
+        &__social {
+            i {
+                color: white;
+                font-size: 3em;
+                transition: all .2s ease-in;
+
+                &:hover {
+                    color: #dadada;
+                    transition: all .2s ease-out;
+                }
+            }
+        }
+
+        &__social *:not(:first-child):not(:last-child) {
+            margin: 0 1vw;
+        }
+
+        &__copyright, &__help a {
+            color: white;
+            font-size: 1.5em;
+        }
+    }
+}
+
+@media screen and (max-width: 480px) {
+    footer {
+        .footer {
+            @include flex(column, $align: center, $gap: 1.5rem);
+            @include size (100vw, auto);
+            &:first-child {padding-top: .6rem;}
+            &:last-child {padding-bottom: .6rem;}
+        }
+    }
+}

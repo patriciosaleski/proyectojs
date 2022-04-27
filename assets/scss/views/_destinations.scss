@@ -1,0 +1,174 @@
+body .destinations {
+    @include flex(column, $align: center, $justify: center);
+    background: transparent;
+    height: 50vh;
+    margin: -2rem 0 5rem;
+    border-radius: 10px;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
+			0 10px 10px rgba(0,0,0,0.22);
+	position: relative;
+	overflow: hidden;
+	width: 768px;
+	max-width: 100%;
+	min-height: 480px;
+
+    &__overlay {
+        background: #FF416C;
+        background: -webkit-linear-gradient(to right, rgba(151,151,151,.15), rgba(151,151,151,.15));
+        background: linear-gradient(to right, rgba(151,151,151,.15), rgba(151,151,151,.15));
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: 0 0;
+        color: #FFFFFF;
+        position: relative;
+        left: -100%;
+        height: 100%;
+        width: 200%;
+        transform: translateX(0);
+        transition: transform 0.6s ease-in-out;
+
+        .overlay__panel {
+            @include flex(column, center, center);
+            position: absolute;
+            padding: 0 40px;
+            text-align: center;
+            top: 0;
+            height: 100%;
+            width: 50%;
+            transform: translateX(0);
+            transition: transform 0.6s ease-in-out;
+
+            h1 {
+                @include primary-font(3.8em, $color: black);
+            }
+
+            &--left {
+                transform: translateX(-20%);
+            }
+            
+            &--right {
+                right: 0;
+                transform: translateX(0);
+            }
+        }
+
+        &--container {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 50%;
+            height: 100%;
+            overflow: hidden;
+            transition: transform 0.6s ease-in-out;
+            z-index: 100;
+        }
+    }
+
+    &__container {
+        @include flex(column, center, center);
+        position: absolute;
+        top: 0;
+        height: 100%;
+        transition: all 0.6s ease-in-out;
+
+        h2, h3 {
+            @include primary-font(4em, $color: white, $align: center);
+        }
+        h3 {
+            font-weight: map-get($font--weight, light);
+            font-size: 1.6em;
+            text-align: start;
+            padding: 4rem 2.5rem;
+        }
+
+        .travel__stats {
+            @include flex($gap: 4rem);
+            margin-bottom: 2rem;
+
+            &--distance, &--time {
+                p:first-of-type {
+                    @include primary-font(1.2em, $color: white);
+                }
+                p:last-of-type {
+                    font-family: 'Bellefair', sans-serif;
+                    color: white;
+                    font-size: 3.2em;
+                }
+            }
+        }
+    }
+
+    button {
+        @include primary-font(1.2em, $weight: bold, $ls: 0.01rem);
+        border-radius: 2rem;
+        border: white 0.2rem solid;
+        color: white;
+        padding: 1.2rem 4.5rem;
+        transition: transform .08s ease-in;
+
+        &:active {
+            transform: scale(.95);
+        }
+
+        &:focus {
+            outline: none;
+        }
+
+        &.ghost {
+            background-color: transparent;
+            border-color: white;
+        }
+    }
+
+    .moon {
+        left: 0;
+        width: 50%;
+        z-index: 2;
+    }
+
+    .mars {
+        left: 0;
+        width: 50%;
+        opacity: 0;
+        z-index: 1;
+    }
+}
+
+.right-panel-active {
+    .moon {
+        transform: translateX(100%);
+    }
+    .mars {
+        transform: translateX(100%);
+        opacity: 1;
+        z-index: 5;
+        animation: show 0.6s;
+    }
+    .destinations__overlay {
+        transform: translateX(50%);
+
+        &--container {
+            transform: translateX(-100%);
+        }
+    }
+    .overlay__panel {
+        &--left {
+            transform: translateX(0);
+        }
+        &--right {
+            transform: translateX(20%);
+        }
+    }
+}
+
+@keyframes show {
+	0%, 49.99% {
+		opacity: 0;
+		z-index: 1;
+	}
+	
+	50%, 100% {
+		opacity: 1;
+		z-index: 5;
+	}
+}

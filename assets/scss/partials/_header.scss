@@ -1,0 +1,196 @@
+// Header properties
+
+header {
+    @include flex($justify:flex-end);
+
+    .navbar{
+        width: 90vw;
+        margin-top: 3rem;
+        @include flex($justify:space-between, $align:center);
+
+        &__menu {
+            @include flex();
+            padding: 3rem 20rem 3rem 5rem;
+            background: rgba(151, 151, 151, 0.7);
+            @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+                @include blur;
+            }
+
+            &--item {
+                a {
+                    padding: 3rem 2.5rem;
+                    transition: all .3s ease-out;
+                    @include primary-font(2em, $align: center, $color: white,$ls: 0.02rem);
+
+                    &:hover {
+                        background-color: rgba(151, 151, 151, 0.7);
+                        transition: all .3s ease-in;
+                        box-shadow: 0px -0.4rem 0px 0px #d1d1d1 inset;
+                    }
+
+                    &.active {
+                        box-shadow: 0px -0.4rem 0px 0px #fff inset;
+                    }
+                }
+
+                &:last-of-type {
+                    display: none;
+                }
+
+                .hamburger {
+                    &__menu {
+                        display: none;
+                        position: absolute;
+                        z-index: 2;
+                        right: 2vw;
+                    }
+
+                    &__icon {
+                        display: none;
+                        position: absolute;
+                        height: 40px;
+                        width: 40px;
+                        padding: 0.5rem;
+                        top: 24px;
+
+                        div {
+                            position: relative;
+                            background: white;
+                            height: 4px;
+                            width: 100%;
+                            transition: all  0.4s ease;
+
+                            &::after, &::before {
+                                content: '';
+                                position: absolute;
+                                top: -10px;
+                                background: white;
+                                width: 100%;
+                                height: 4px;
+                                transition: all  0.4s ease;
+                            }
+
+                            &::after {
+                                top: 10px;
+                            }
+                        }
+                    }
+                }
+
+                #sub-menu--toggler {
+                    z-index:2;
+                    height: 40px;
+                    width: 40px;
+                    cursor: pointer;
+                    opacity: 0;
+                    position: sticky;
+
+                    &:checked {
+                        &~ .hamburger__menu {
+                            @include flex(column);
+                            position: absolute;
+                            
+                            ul {
+                                background: rgba(151, 151, 151, 0.7);
+                                @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+                                    @include blur;
+                                }
+                                box-shadow: -10px 8px 15px rgba(0,0,0,0.2),
+                                            10px 8px 15px rgba(0,0,0,0.2);
+                                padding: 0;
+                                margin: 0;
+                            }
+                    
+                            .sub-menu__link {
+                                @include flex(column, $align: center);
+                                @include primary-font(1.8em, $align: center);
+                                padding: 1rem 2rem;
+                    
+                                &:hover {
+                                    background: rgba(151, 151, 151, 0.7);
+                                    transition: all .3s ease-in-out;
+                                    box-shadow: 0px -0.4rem 0px 0px #d1d1d1 inset;
+                                }
+                            }
+                        }
+
+                        &+ .hamburger__icon {
+                            div {
+                                background: rgba(0,0,0,0);
+        
+                                &::before {
+                                    top: 0;
+                                    transform: rotate(45deg);
+                                }
+        
+                                &::after {
+                                    top: 0;
+                                    transform: rotate(135deg);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@-moz-document url-prefix(){ // Para solucionar un error de posicion en Firefox
+    .hamburger__icon {
+        top: 75px!important;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    header {
+        .navbar {
+            &__menu {
+                padding: 2.5rem 10rem 2.5rem 3rem;
+
+                &--item {
+                    a {
+                        padding: 2.5rem 2rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    header {
+        .navbar {
+            &__menu {
+                padding: 2rem 4rem 2rem 1rem;
+
+                &--item {
+                    a {
+                        padding: 2rem;
+                        font-size: 1.4em;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 600px) {
+    header {
+        .navbar {
+            &__menu {
+                padding: 1rem 2rem 1rem 1rem;
+
+                &--item {
+                    &:not(:last-child) {
+                        display: none;
+                    }
+
+                    &:last-child, #sub-menu--toggler, .hamburger__icon {
+                        display: block;
+                    }
+                }
+            }
+        }
+    }
+}

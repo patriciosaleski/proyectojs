@@ -1,0 +1,57 @@
+body {
+    background: linear-gradient(
+        rgba(0, 0, 0, 0.48),
+        rgba(0, 0, 0, 0.48)
+    ),
+    url(../img/earth.jpg);
+    background-position-y: center;
+
+    .home {
+        @include flex($justify: center, $align: center, $gap: 30rem);
+        min-height: 77.2vh;
+
+        &__title {
+            &--title {
+                @include primary-font(3.8em, white, light, $ls: -0.02rem);
+                margin-bottom: 2rem;
+            }
+            &--subtitle {
+                @include primary-font(2em, white, light, $ls: -0.02rem);
+                width: 53rem;
+            }
+            .rocket {
+                @include flex($align: flex-end);
+
+                hr {
+                    @include size(100%, 0.5rem);
+                    background-color: white;
+                    margin-top: 9rem;
+                    margin-bottom: 1.3rem;
+                }
+
+                i {
+                    font-size: 3.2em;
+                    color: white;
+                    transform: rotate(45deg);
+                }
+            }
+        }
+
+        &__explore {
+            margin-top: 14rem;
+            &--button {
+                @include flex($justify: center, $align: center);
+                @include primary-font(3.8em, black, light, $ls: -0.02rem);
+                @include size(30rem, 30rem);
+                background-color: white;
+                border-radius: 100%;
+                transition: .5s;
+
+                &:hover {
+                    transform: scale(1.25);
+                    box-shadow: 0px 0px 15px #fff;
+                }
+            }
+        }
+    }
+}
