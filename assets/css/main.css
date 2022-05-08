@@ -35,7 +35,6 @@ footer .footer {
   justify-content: space-between;
   align-items: center;
   gap: 0;
-  width: 100vw;
   height: 8rem;
   padding: 0 2vw;
   background: rgba(151, 151, 151, 0.7); }
@@ -220,9 +219,8 @@ body .destinations {
   justify-content: center;
   align-items: center;
   gap: 0;
+  margin: 8.29rem auto;
   background: transparent;
-  height: 50vh;
-  margin: -2rem 0 5rem;
   border-radius: 10px;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   position: relative;
@@ -249,7 +247,7 @@ body .destinations {
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      gap: 0;
+      gap: 2rem;
       position: absolute;
       padding: 0 40px;
       text-align: center;
@@ -261,7 +259,9 @@ body .destinations {
       body .destinations__overlay .overlay__panel h1 {
         font-family: 'Noto Sans', sans-serif;
         font-size: 3.8em;
-        color: black; }
+        color: white; }
+      body .destinations__overlay .overlay__panel img {
+        width: 300px; }
       body .destinations__overlay .overlay__panel--left {
         transform: translateX(-20%); }
       body .destinations__overlay .overlay__panel--right {
@@ -302,7 +302,7 @@ body .destinations {
       justify-content: flex-start;
       align-items: flex-start;
       gap: 4rem;
-      margin-bottom: 2rem; }
+      margin-bottom: 6rem; }
       body .destinations__container .travel__stats--distance p:first-of-type, body .destinations__container .travel__stats--time p:first-of-type {
         font-family: 'Noto Sans', sans-serif;
         font-size: 1.2em;
@@ -316,6 +316,7 @@ body .destinations {
     font-size: 1.2em;
     font-weight: 700;
     letter-spacing: 0.01rem;
+    background: rgba(24, 24, 24, 0.685);
     border-radius: 2rem;
     border: white 0.2rem solid;
     color: white;
@@ -329,42 +330,359 @@ body .destinations {
       background-color: transparent;
       border-color: white; }
   body .destinations .moon {
+    background: rgba(87, 87, 87, 0.4);
     left: 0;
     width: 50%;
     z-index: 2; }
+    @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+      body .destinations .moon {
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        background: rgba(87, 87, 87, 0.2); } }
   body .destinations .mars {
+    background: rgba(87, 87, 87, 0.4);
     left: 0;
     width: 50%;
     opacity: 0;
     z-index: 1; }
+    @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+      body .destinations .mars {
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        background: rgba(87, 87, 87, 0.2); } }
 
-.right-panel-active .moon {
-  transform: translateX(100%); }
+.destinations.right-panel-active .moon {
+  transform: translateX(100%);
+  opacity: 0; }
 
-.right-panel-active .mars {
+.destinations.right-panel-active .mars {
   transform: translateX(100%);
   opacity: 1;
   z-index: 5;
   animation: show 0.6s; }
 
-.right-panel-active .destinations__overlay {
-  transform: translateX(50%); }
-  .right-panel-active .destinations__overlay--container {
-    transform: translateX(-100%); }
-
-.right-panel-active .overlay__panel--left {
+.destinations.right-panel-active .overlay__panel--left {
   transform: translateX(0); }
 
-.right-panel-active .overlay__panel--right {
+.destinations.right-panel-active .overlay__panel--right {
   transform: translateX(20%); }
 
+.destinations.right-panel-active .destinations__overlay {
+  transform: translateX(50%); }
+  .destinations.right-panel-active .destinations__overlay--container {
+    transform: translateX(-100%); }
+
 @keyframes show {
-  0%, 49.99% {
+  0%, 49% {
     opacity: 0;
     z-index: 1; }
   50%, 100% {
     opacity: 1;
     z-index: 5; } }
+
+body .booking__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 4rem;
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 2em;
+  color: white;
+  margin: 6rem auto; }
+  body .booking__container .destination__date, body .booking__container .destination__info {
+    margin-left: auto;
+    margin-right: auto;
+    background: rgba(87, 87, 87, 0.4); }
+    @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+      body .booking__container .destination__date, body .booking__container .destination__info {
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        background: rgba(87, 87, 87, 0.2); } }
+  body .booking__container .destination__date {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    width: 50vw;
+    height: 7rem; }
+    body .booking__container .destination__date form {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 5rem; }
+      body .booking__container .destination__date form .passenger__quantity {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 1rem; }
+      body .booking__container .destination__date form select {
+        width: 20rem;
+        height: 3rem;
+        padding: 0 0.6rem;
+        background-color: rgba(24, 24, 24, 0.774);
+        border: rgba(255, 255, 255, 0.4) 0.1rem solid;
+        border-radius: .6rem;
+        color: white; }
+      body .booking__container .destination__date form input {
+        text-align: center;
+        background-color: rgba(24, 24, 24, 0.774);
+        border: rgba(255, 255, 255, 0.4) 0.1rem solid;
+        border-radius: .6rem; }
+        body .booking__container .destination__date form input[type=date] {
+          width: 15rem;
+          height: 3rem;
+          color: white; }
+        body .booking__container .destination__date form input[type=button] {
+          width: 2.6rem;
+          height: 2.6rem;
+          border-radius: 50%;
+          border: white 0.1rem solid;
+          font-size: 1em;
+          color: white;
+          background-color: gray;
+          transition: all .4s ease; }
+          body .booking__container .destination__date form input[type=button]:hover {
+            background-color: black;
+            cursor: pointer; }
+        body .booking__container .destination__date form input[type=number] {
+          width: 5rem;
+          height: 2.6rem;
+          font-family: 'Noto Sans', sans-serif;
+          font-size: 1.6rem;
+          color: white;
+          border-radius: 1rem;
+          border: black 0.1rem solid; }
+  body .booking__container .destination__info {
+    width: 50vw;
+    height: 10rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0; }
+    body .booking__container .destination__info--moon, body .booking__container .destination__info--mars, body .booking__container .destination__info .no__destination {
+      display: none; }
+      body .booking__container .destination__info--moon.active, body .booking__container .destination__info--mars.active, body .booking__container .destination__info .no__destination.active {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 4rem; }
+    body .booking__container .destination__info img {
+      width: 80px;
+      height: 80px; }
+  body .booking__container .passenger__container {
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 2rem; }
+  body .booking__container .passenger__data .accordion {
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 1.4em;
+    color: white;
+    text-align: left;
+    width: 50vw;
+    height: 5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0;
+    padding-left: 1rem;
+    background-color: rgba(87, 87, 87, 0.4);
+    border: none;
+    transition: all .4s ease; }
+    body .booking__container .passenger__data .accordion::after {
+      content: '+';
+      font-size: 120%;
+      color: white;
+      margin-right: .8rem; }
+    body .booking__container .passenger__data .accordion.open, body .booking__container .passenger__data .accordion:hover {
+      background-color: rgba(100, 100, 100, 0.664); }
+    body .booking__container .passenger__data .accordion.open::after {
+      content: '-'; }
+    body .booking__container .passenger__data .accordion__panel {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      grid-template-rows: repeat(4, auto);
+      justify-content: start;
+      align-content: center;
+      row-gap: 3rem;
+      margin-left: auto;
+      margin-right: auto;
+      background: rgba(87, 87, 87, 0.4);
+      width: 50vw;
+      justify-items: center;
+      padding: 4rem 0 2rem 0;
+      display: none; }
+      @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+        body .booking__container .passenger__data .accordion__panel {
+          backdrop-filter: blur(4px);
+          -webkit-backdrop-filter: blur(4px);
+          background: rgba(87, 87, 87, 0.2); } }
+  body .booking__container .passenger__data .wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 0.5rem; }
+  body .booking__container .passenger__data h2 {
+    justify-self: start; }
+  body .booking__container .passenger__data label {
+    font-size: 1em; }
+  body .booking__container .passenger__data--name {
+    width: 100%; }
+    body .booking__container .passenger__data--name form {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      align-items: flex-start;
+      gap: 0; }
+      body .booking__container .passenger__data--name form input {
+        width: 30rem;
+        height: 3rem;
+        background-color: rgba(24, 24, 24, 0.774);
+        border: rgba(255, 255, 255, 0.4) 0.1rem solid;
+        border-radius: .6rem;
+        padding-left: 1rem;
+        color: white; }
+        body .booking__container .passenger__data--name form input::placeholder {
+          color: white; }
+  body .booking__container .passenger__data--birth {
+    width: 100%; }
+    body .booking__container .passenger__data--birth form {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      align-items: flex-start;
+      gap: 0; }
+      body .booking__container .passenger__data--birth form input[type=date] {
+        width: 30rem;
+        height: 3rem;
+        background-color: rgba(24, 24, 24, 0.774);
+        border: rgba(255, 255, 255, 0.4) 0.1rem solid;
+        border-radius: .6rem;
+        padding-left: 1rem;
+        color: white; }
+    body .booking__container .passenger__data--birth--gender label {
+      font-size: .8em; }
+    body .booking__container .passenger__data--birth--gender .container {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 1.4rem;
+      width: 30rem;
+      height: 3rem; }
+      body .booking__container .passenger__data--birth--gender .container input[type=radio] {
+        width: 1.6rem;
+        height: 1.6rem; }
+      body .booking__container .passenger__data--birth--gender .container div {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 0.5rem; }
+  body .booking__container .passenger__data--id {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    gap: 0;
+    width: 100%; }
+    body .booking__container .passenger__data--id form input, body .booking__container .passenger__data--id form select {
+      width: 19rem;
+      height: 3rem;
+      background-color: rgba(24, 24, 24, 0.774);
+      border: rgba(255, 255, 255, 0.4) 0.1rem solid;
+      border-radius: .6rem;
+      padding-left: 1rem;
+      color: white; }
+    body .booking__container .passenger__data--id form.wrapper:not(:first-child):not(:last-child) input {
+      width: 11rem; }
+  body .booking__container .booking__contact {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(2, auto);
+    justify-content: start;
+    align-content: center;
+    row-gap: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+    background: rgba(87, 87, 87, 0.4);
+    width: 50vw;
+    padding: 1rem 2rem 3rem 2rem; }
+    @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+      body .booking__container .booking__contact {
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        background: rgba(87, 87, 87, 0.2); } }
+    body .booking__container .booking__contact form {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      align-items: flex-start;
+      gap: 0; }
+      body .booking__container .booking__contact form input {
+        background-color: rgba(24, 24, 24, 0.774);
+        border: rgba(255, 255, 255, 0.4) 0.1rem solid;
+        border-radius: .6rem;
+        padding-left: 1rem;
+        color: white; }
+        body .booking__container .booking__contact form input::placeholder {
+          color: white; }
+        body .booking__container .booking__contact form input[type=email] {
+          width: 22rem;
+          height: 3rem; }
+        body .booking__container .booking__contact form input[type=number] {
+          width: 5rem;
+          height: 3rem; }
+        body .booking__container .booking__contact form input[type=tel] {
+          width: 20rem;
+          height: 3rem; }
+      body .booking__container .booking__contact form .wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 0.5rem; }
+      body .booking__container .booking__contact form .booking__contact--phone {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 4rem; }
+  body .booking__container #form-submit {
+    width: 20rem;
+    height: 4rem;
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 1em;
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+    border: #FFF .1rem solid;
+    border-radius: 1rem;
+    background-color: rgba(24, 24, 24, 0.774);
+    transition: all .4s ease; }
+    body .booking__container #form-submit:hover {
+      background-color: rgba(100, 100, 100, 0.664); }
+  body .booking__container input[type="date"]::-webkit-inner-spin-button,
+  body .booking__container input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    padding-right: 1rem; }
+  body .booking__container input::-webkit-outer-spin-button,
+  body .booking__container input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0; }
+  body .booking__container input[type=number] {
+    -moz-appearance: textfield; }
 
 body {
   background: linear-gradient(rgba(0, 0, 0, 0.48), rgba(0, 0, 0, 0.48)), url(../img/earth.jpg);

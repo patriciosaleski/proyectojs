@@ -3,7 +3,7 @@
 footer {
     .footer {
         @include flex($justify:space-between, $align:center);
-        @include size(100vw,8rem);
+        height: 8rem;
         padding: 0 2vw;
         background: rgba(151, 151, 151, 0.7);
         @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {

@@ -50,3 +50,8 @@ $font--weight: (
     -webkit-backdrop-filter: blur(15px);
     background: rgba(151, 151, 151, 0.34);
 }
+
+@mixin planet--blur {
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}

@@ -1,0 +1,297 @@
+body {
+    .booking__container {
+        @include flex(column, $gap: 4rem);
+        @include primary-font(2em, white);
+        margin: 6rem auto;
+
+        .destination {
+            &__date, &__info {
+                @include push--auto;
+                background: rgba(87, 87, 87, 0.4);
+                @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+                    @include planet--blur();
+                    background: rgba(87, 87, 87, 0.2);
+                }
+            }
+
+            &__date {
+                @include flex($justify: center, $align: center);
+                @include size(50vw, 7rem);
+                form {
+                    @include flex(row, center, center, 5rem);
+
+                    .passenger__quantity {
+                        @include flex($align: center, $gap: 1rem);
+                    }
+
+                    select {
+                        @include size(20rem, 3rem);
+                        padding: 0 0.6rem;
+                        background-color: rgba(24, 24, 24, 0.774);
+                        border: rgba($color: #FFF, $alpha: .40) .1rem solid;
+                        border-radius: .6rem;
+                        color: white;
+                    }
+
+                    input {
+                        text-align: center;
+                        background-color: rgba(24, 24, 24, 0.774);
+                        border: rgba($color: #FFF, $alpha: .40) .1rem solid;
+                        border-radius: .6rem;
+
+                        &[type=date] {
+                            @include size(15rem, 3rem);
+                            color: white
+                        }
+
+                        &[type=button] {
+                            @include size(2.6rem, 2.6rem);
+                            border-radius: 50%;
+                            border: white 0.1rem solid;
+                            font-size: 1em;
+                            color: white;
+                            background-color: gray;
+                            transition: all .4s ease;
+
+                            &:hover {
+                                background-color: black;
+                                cursor: pointer;
+                            }
+                        }
+
+                        &[type=number] {
+                            @include size(5rem, 2.6rem);
+                            @include primary-font(1.6rem, white);
+                            border-radius: 1rem;
+                            border: black 0.1rem solid;
+                        }
+                    }
+                }
+            }
+
+            &__info {
+                @include size(50vw, 10rem);
+                @include flex(row, center, center);
+
+                &--moon, &--mars, .no__destination {
+                    display: none;
+
+                    &.active {
+                        @include flex(row, center, center, 4rem);
+                    }
+                }
+
+                img {
+                    @include size(80px, 80px);
+                }
+            }
+        }
+
+        .passenger {
+            &__container {
+                @include push--auto;
+                @include flex(column, $gap: 2rem);
+            }
+
+            &__data {
+                .accordion {
+                    @include primary-font(1.4em, white, $align: left);
+                    @include size(50vw, 5rem);
+                    @include flex($justify:space-between, $align: center);
+                    padding-left: 1rem;
+                    background-color: rgba(87, 87, 87, 0.4);
+                    border: none;
+                    transition: all .4s ease;
+
+                    &::after {
+                        content: '+';
+                        font-size: 120%;
+                        color: white;
+                        margin-right: .8rem;
+                    }
+
+                    &.open, &:hover {
+                        background-color: rgba(100, 100, 100, 0.664);
+                    }
+
+                    &.open::after {
+                        content: '-';
+                    }
+
+                    &__panel {
+                        @include grid(1, 4, $rsize: auto, $rgap: 3rem);
+                        @include push--auto;
+                        background: rgba(87, 87, 87, 0.4);
+                        @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+                            @include planet--blur();
+                            background: rgba(87, 87, 87, 0.2);
+                        }
+                        @include size(50vw);
+                        justify-items: center;
+                        padding: 4rem 0 2rem 0;
+                        display: none;
+                    }
+                }
+
+                .wrapper {
+                    @include flex(column, $gap: .5rem);
+                }
+
+                h2 {justify-self: start}
+
+                label {font-size: 1em;}
+
+                &--name {
+                    width: 100%;
+
+                    form {
+                        @include flex($justify: space-evenly);
+
+                        input {
+                            @include size(30rem, 3rem);
+                            background-color: rgba(24, 24, 24, 0.774);
+                            border: rgba($color: #FFF, $alpha: .40) .1rem solid;
+                            border-radius: .6rem;
+                            padding-left: 1rem;
+                            color: white;
+
+                            &::placeholder {color: white}
+                        }
+                    }
+                }
+
+                &--birth {
+                    width: 100%;
+
+                    form {
+                        @include flex($justify: space-evenly);
+
+                        input {
+                            &[type=date] {
+                                @include size(30rem, 3rem);
+                                background-color: rgba(24, 24, 24, 0.774);
+                                border: rgba($color: #FFF, $alpha: .40) .1rem solid;
+                                border-radius: .6rem;
+                                padding-left: 1rem;
+                                color: white;
+                            }
+                        }
+                    }
+
+                    &--gender {
+                        label {font-size: .8em;}
+
+                        .container {
+                            @include flex($align: center, $gap: 1.4rem);
+                            @include size(30rem, 3rem);
+                            input[type=radio] {
+                                @include size(1.6rem, 1.6rem);
+                            }
+
+                            div {@include flex($align: center, $gap: .5rem);}
+                        }
+                    }
+                }
+
+                &--id {
+                    @include flex($justify: space-evenly);
+                    width: 100%;
+
+                    form {
+                        input, select {
+                            @include size(19rem, 3rem);
+                            background-color: rgba(24, 24, 24, 0.774);
+                            border: rgba($color: #FFF, $alpha: .40) .1rem solid;
+                            border-radius: .6rem;
+                            padding-left: 1rem;
+                            color: white;
+                        }
+
+                        &.wrapper:not(:first-child):not(:last-child) input {
+                            width: 11rem;
+                        }
+                    }
+                }
+            }
+        }
+
+        .booking__contact {
+            @include grid(1, 2, $rsize: auto, $rgap: 2rem);
+            @include push--auto;
+            background: rgba(87, 87, 87, 0.4);
+            @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+                @include planet--blur();
+                background: rgba(87, 87, 87, 0.2);
+            }
+            @include size(50vw);
+            padding: 1rem 2rem 3rem 2rem;
+
+            form {
+                @include flex($justify: space-evenly);
+
+                input {
+                    background-color: rgba(24, 24, 24, 0.774);
+                    border: rgba($color: #FFF, $alpha: .40) .1rem solid;
+                    border-radius: .6rem;
+                    padding-left: 1rem;
+                    color: white;
+                    
+                    &::placeholder {color: white;}
+
+                    &[type=email] {
+                        @include size(22rem, 3rem);
+                    }
+
+                    &[type=number] {
+                        @include size(5rem, 3rem);
+                    }
+                    
+                    &[type=tel] {
+                        @include size(20rem, 3rem);
+                    }
+                }
+
+                .wrapper {
+                    @include flex(column, $gap: .5rem);
+                }
+
+                .booking__contact--phone {
+                    @include flex($gap: 4rem);
+                }
+            }
+        }
+
+        #form-submit {
+            @include size(20rem, 4rem);
+            @include primary-font(1em, white);
+            @include push--auto;
+            border: #FFF .1rem solid;
+            border-radius: 1rem;
+            background-color: rgba(24, 24, 24, 0.774);
+            transition: all .4s ease;
+
+            &:hover {
+                background-color: rgba(100, 100, 100, 0.664);
+            }
+        }
+
+        // Cambia el color del icono para seleccionar la fecha de nacimiento
+        input[type="date"]::-webkit-inner-spin-button,
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+            padding-right: 1rem;
+        }
+
+        // Para remover las flechas de incremento/decremento del input de type=number
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    }
+}
+
