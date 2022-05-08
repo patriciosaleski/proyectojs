@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserva - Axiom Space</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <script src="https://kit.fontawesome.com/1aee70cc01.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="navbar__logo">
+                <a href="../../index.html"><img src="../img/logo.png" alt="Axiom Space Logo"></a>
+            </div>
+            <ul class="navbar__menu">
+                <li class="navbar__menu--item"><a href="../../index.html">INICIO</a></li>
+                <li class="navbar__menu--item"><a href="./destinations.html">DESTINOS</a></li>
+                <li class="navbar__menu--item"><a href="./booking.html" class="active">RESERVA</a></li>
+                <li class="navbar__menu--item"><a href="./help.html">AYUDA</a></li>
+                <li class="navbar__menu--item"> <!--Hamburger menu-->
+                    <input type="checkbox" id="sub-menu--toggler">
+                    <div class="hamburger__icon">
+                        <div></div>
+                    </div>
+                    <div class="hamburger__menu">
+                        <div>
+                            <ul>
+                                <li><a href="../../index.html" class="sub-menu__link">Inicio</a></li>
+                                <li><a href="./destinations.html" class="sub-menu__link">Destinos</a></li>
+                                <li><a href="./booking.html" class="sub-menu__link">Reserva</a></li>
+                                <li><a href="./help.html" class="sub-menu__link">Ayuda</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="booking__container">
+        <div class="destination__date">
+            <form>
+                <select name="destination" id="destination">
+                    <option disabled>Seleccione un destino</option>
+                    <option value="moon">Luna</option>
+                    <option value="mars">Marte</option>
+                </select>
+                <div>
+                    <label for="date-of-travel">Fecha:</label>
+                    <input type="date" name="date-of-travel" id="travelDate" min="2022-05-08">
+                </div>
+                <div id="travel-time"><i class="fa-regular fa-clock"></i> --</div>
+                <div class="passenger__quantity">
+                    <p>Pasajeros:</p>
+                    <input type="button" id="addPassenger" value="+"></input>
+                    <input type="number" min="1" max="10" value="1" id="passengerQuantity" disabled>
+                    <input type="button" id="removePassenger" value="-"></input>
+                </div>
+            </form>
+        </div>
+
+        <div class="destination__info">
+            <div class="no__destination active" id="no-destination">Primero seleccione un destino...</div>
+            <div class="destination__info--mars" id="mars-select">
+                <p>Distancia: 225.000.000 Km.</p>
+                <p>Viaje: 7 Meses</p>
+                <p>Temperatura: -24°C</p>
+                <img src="../img/mars.png" alt="Foto de Marte">
+            </div>
+            <div class="destination__info--moon" id="moon-select">
+                <p>Distancia: 334.000 Km.</p>
+                <p>Viaje: 4 Días</p>
+                <p>Temperatura: -124°C</p>
+                <img src="../img/moon.png" alt="Foto de la Luna">
+            </div>
+        </div>
+
+        <div class="passenger__container" id="passenger__container">
+            <div class="passenger__data" id="passenger-1">
+                <button class="accordion">Datos del pasajero #1</button>
+                <div class="accordion__panel">
+                    <div class="passenger__data--name">
+                        <form>
+                            <div class="wrapper">
+                                <label for="name">Nombres</label>
+                                <input type="text" name="name" id="passenger-1-name" placeholder="Ingrese su nombre" required>
+                            </div>
+                            <div class="wrapper">
+                                <label for="surname">Apellidos</label>
+                                <input type="text" name="surname" id="passenger-1-surname" placeholder="Ingrese su apellido" required>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="passenger__data--birth">
+                        <form>
+                            <div class="wrapper">
+                                <label for="birthday">Fecha de nacimiento</label>
+                                <input type="date" name="birthday" id="passenger-1-birthday">
+                            </div>
+                            <div class="passenger__data--birth--gender wrapper">
+                                Sexo
+                                <div class="container">
+                                    <div>
+                                        <label for="gender">Hombre</label>
+                                        <input type="radio" name="passenger-1-gender" value="male">
+                                    </div>
+                                    <div>
+                                        <label for="gender">Mujer</label>
+                                        <input type="radio" name="passenger-1-gender" value="female">
+                                    </div>
+                                    <div>
+                                        <label for="gender">Otro</label>
+                                        <input type="radio" name="passenger-1-gender" value="other">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="passenger__data--id">
+                        <form class="wrapper">
+                            <label for="document">Tipo de documento</label>
+                            <select name="document" id="passenger-1-document">
+                                <option disabled>Seleccione una opción</option>
+                                <option value="du">Documento Único</option>
+                                <option value="passport">Pasaporte</option>
+                            </select>
+                        </form class="wrapper">
+                        <form class="wrapper">
+                            <label for="id-number">Número</label>
+                            <input type="number" required min="1" max="120000000" id="passenger-1-document-number">
+                        </form>
+                        <form class="wrapper">
+                            <label for="nationality">Nacionalidad</label>
+                            <select name="nationality" id="passenger-1-nationality">
+                                <option>Seleccione una opción</option>
+                                <option value="argentina">Argentina</option>
+                                <option value="bolivia">Boliviana</option>
+                                <option value="paraguay">Paraguaya</option>
+                                <option value="peru">Peruana</option>
+                                <option value="chile">Chilena</option>
+                                <option value="uruguay">Uruguaya</option>
+                                <option value="ecuador">Ecuatoriana</option>
+                                <option value="colombia">Colombiana</option>
+                                <option value="venezuela">Venezolana</option>
+                                <option value="brazil">Brasileña</option>
+                            </select>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="booking__contact">
+            <h2>Datos de reserva</h2>
+            <form>
+                <div class="wrapper">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="booking-email" placeholder="ejemplo@axiom.com">
+                </div>
+                <div class="booking__contact--phone">
+                    <div class="wrapper">
+                        <label for="area-code">Cod. Area</label>
+                        <input type="number" name="area-code" id="phone-area" min="1" max="9999" placeholder="111" required>
+                    </div>
+                    <div class="wrapper">
+                        <label for="phone-number">Teléfono</label>
+                        <input type="tel" name="phone-number" id="phone-number" min="1" placeholder="1234-5678" required>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <button id="form-submit">Finalizar Reserva</button>
+    </div>
+
+    <footer>
+        <div class="footer">
+            <div class="footer__help">
+                <a href="./help.html">¿Quienes Somos?</a>
+            </div>
+            <div class="footer__social">
+                <a href="https://www.instagram.com"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://www.facebook.com"><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://www.whatsapp.com"><i class="fa-brands fa-whatsapp"></i></a>
+            </div>
+            <div class="footer__copyright">
+                <i class="fa-regular fa-copyright"> Axiom Space</i>
+            </div>
+        </div>
+    </footer>
+    <script src="../../main.js"></script>
+</body>
+</html>
