@@ -1,19 +1,5 @@
 esversion: 6
 
-// - - - - - - - destionations.html JS code
-// const marsButton = document.getElementById('mars');
-// const moonButton = document.getElementById('moon');
-// const container = document.getElementById('container');
-
-// marsButton.addEventListener('click', () => {
-//     container.classList.add("right-panel-active");
-// });
-
-// moonButton.addEventListener('click', () => {
-//     container.classList.remove("right-panel-active");
-// });
-
-
 // - - - - - - - booking.html JS code
 
 // Array con los datos de cada reserva
@@ -84,15 +70,15 @@ function addPassengerForm(passengerQuantity) {
                         <div class="container">
                             <div>
                                 <label for="gender">Hombre</label>
-                                <input type="radio" name="passenger-${passengerQuantity}-gender" id="male">
+                                <input type="radio" name="passenger-${passengerQuantity}-gender" value="male">
                             </div>
                             <div>
                                 <label for="gender">Mujer</label>
-                                <input type="radio" name="passenger-${passengerQuantity}-gender" id="female">
+                                <input type="radio" name="passenger-${passengerQuantity}-gender" value="female">
                             </div>
                             <div>
                                 <label for="gender">Otro</label>
-                                <input type="radio" name="passenger-${passengerQuantity}-gender" id="other">
+                                <input type="radio" name="passenger-${passengerQuantity}-gender" value="other">
                             </div>
                         </div>
                     </div>
