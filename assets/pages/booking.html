@@ -39,17 +39,17 @@
         </nav>
     </header>
 
-    <div class="booking__container">
-        <div class="destination__date">
+    <div class="booking">
+        <div class="booking__destination--date">
             <form>
                 <select name="destination" id="destination">
-                    <option value="" disabled selected>Seleccione un destino</option>
+                    <option value="none" disabled selected>Seleccione un destino</option>
                     <option value="moon">Luna</option>
                     <option value="mars">Marte</option>
                 </select>
                 <div>
                     <label for="date-of-travel">Fecha:</label>
-                    <input type="date" name="date-of-travel" id="travelDate" min="2022-05-08">
+                    <input type="date" name="date-of-travel" id="travelDate">
                 </div>
                 <div id="travel-time"><i class="fa-regular fa-clock"></i> --</div>
                 <div class="passenger__quantity">
@@ -61,15 +61,15 @@
             </form>
         </div>
 
-        <div class="destination__info">
+        <div class="booking__destination--info">
             <div class="no__destination active" id="no-destination">Primero seleccione un destino...</div>
-            <div class="destination__info--mars" id="mars-select">
+            <div class="booking__destination--info--mars" id="mars-select">
                 <p>Distancia: 225.000.000 Km.</p>
                 <p>Viaje: 7 Meses</p>
                 <p>Temperatura: -24°C</p>
                 <img src="../img/mars.png" alt="Foto de Marte">
             </div>
-            <div class="destination__info--moon" id="moon-select">
+            <div class="booking__destination--info--moon" id="moon-select">
                 <p>Distancia: 334.000 Km.</p>
                 <p>Viaje: 4 Días</p>
                 <p>Temperatura: -124°C</p>
@@ -77,8 +77,8 @@
             </div>
         </div>
 
-        <div class="passenger__container" id="passenger__container">
-            <div class="passenger__data" id="passenger-1">
+        <div class="booking__passenger--container" id="passenger__container">
+            <div class="booking__passenger--container--data" id="passenger-1">
                 <button class="accordion">Datos del pasajero #1</button>
                 <div class="accordion__panel">
                     <div class="passenger__data--name">
@@ -129,22 +129,22 @@
                         </form class="wrapper">
                         <form class="wrapper">
                             <label for="id-number">Número</label>
-                            <input type="number" required min="1" max="120000000" id="passenger-1-document-number">
+                            <input type="number" required min="1" max="120000000" id="passenger-1-document-number" placeholder="12.345.678">
                         </form>
                         <form class="wrapper">
                             <label for="nationality">Nacionalidad</label>
                             <select name="nationality" id="passenger-1-nationality">
-                                <option>Seleccione una opción</option>
+                                <option disabled selected>Seleccione una opción</option>
                                 <option value="argentina">Argentina</option>
                                 <option value="bolivia">Boliviana</option>
+                                <option value="brazil">Brasileña</option>
+                                <option value="chile">Chilena</option>
+                                <option value="colombia">Colombiana</option>
+                                <option value="ecuador">Ecuatoriana</option>
                                 <option value="paraguay">Paraguaya</option>
                                 <option value="peru">Peruana</option>
-                                <option value="chile">Chilena</option>
                                 <option value="uruguay">Uruguaya</option>
-                                <option value="ecuador">Ecuatoriana</option>
-                                <option value="colombia">Colombiana</option>
                                 <option value="venezuela">Venezolana</option>
-                                <option value="brazil">Brasileña</option>
                             </select>
                         </form>
                     </div>

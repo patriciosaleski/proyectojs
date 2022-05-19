@@ -3,6 +3,12 @@
 
 $font-primary: 'Noto Sans', sans-serif;
 
+$input-styles:(
+	"background": rgba(24, 24, 24, 0.77),
+	"border": rgba($color: #FFFFFF, $alpha: 0.7),
+	"text": #FFFFFF
+);
+
 $body-color:(
     "base": #0F0F10,
     "light": #1E2022,
@@ -19,3 +25,15 @@ $status-color: (
     "warning": #FFC416,
     "error": #EC493B
 );
+
+@keyframes float {
+	0% {
+		transform: translatey(0px);
+	}
+	50% {
+		transform: translatey(-20px);
+	}
+	100% {
+		transform: translatey(0px);
+	}
+}

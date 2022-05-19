@@ -2,9 +2,8 @@ esversion: 6
 
 // - - - - - - - booking.html JS code
 
-// Array con los datos de cada reserva
 const bookingInfo = [];
-// Clase con los datos de cada pasajero
+
 class Passenger {
     constructor (name, surname, bday, sex, idType, idNumber, nationality){
         this.name = name;
@@ -15,9 +14,20 @@ class Passenger {
         this.idNumber = idNumber;
         this.nationality = nationality;
     }
+
+    getBirthday() {
+        let today = new Date();
+        let bday = new Date(this.bday);
+        let yearsLived = today.getFullYear() - bday.getFullYear();  // Devuelve la cantidad de años vivida
+        let monthsLived = today.getMonth() - bday.getMonth();   // Devuelve la cantidad de meses vivida
+        if (monthsLived < 0 || (monthsLived === 0 && today.getDate() < bday.getDate())) {
+            yearsLived--;
+        }
+        console.log(`El pasajero llamado ${this.name} tiene ${yearsLived} años.`);
+    }
 }
 
-// Clase con los datos de contacto de la reserva
+
 class ContactData {
     constructor (mail, areaCode, phoneNumber){
         this.mail = mail;
@@ -30,7 +40,7 @@ class ContactData {
     }
 }
 
-// Clase con la informacion del viaje, destino, fecha y cantidad de pasajeros de la reserva (no el total)
+
 class TravelInfo {
     constructor (destination, date, passengers){
         this.destination = destination;
@@ -44,7 +54,7 @@ const passengerData = document.getElementById('passenger__container');
 // Crea un form por cada pasajero
 function addPassengerForm(passengerQuantity) {
         passengerData.innerHTML += `
-        <div class="passenger__data" id="passenger-${passengerQuantity}">
+        <div class="booking__passenger--container--data" id="passenger-${passengerQuantity}">
         <button class="accordion">Datos del pasajero #${passengerQuantity}</button>
         <div class="accordion__panel">
             <div class="passenger__data--name">
@@ -95,7 +105,7 @@ function addPassengerForm(passengerQuantity) {
                 </form class="wrapper">
                 <form class="wrapper">
                     <label for="id-number">Número</label>
-                    <input type="number" required min="1" max="120000000" id="passenger-${passengerQuantity}-document-number">
+                    <input type="number" required min="1" max="120000000" id="passenger-${passengerQuantity}-document-number" placeholder="12.345.678">
                 </form>
                 <form class="wrapper">
                     <label for="nationality">Nacionalidad</label>
@@ -103,14 +113,14 @@ function addPassengerForm(passengerQuantity) {
                         <option>Seleccione una opción</option>
                         <option value="argentina">Argentina</option>
                         <option value="bolivia">Boliviana</option>
+                        <option value="brazil">Brasileña</option>
+                        <option value="chile">Chilena</option>
+                        <option value="colombia">Colombiana</option>
+                        <option value="ecuador">Ecuatoriana</option>
                         <option value="paraguay">Paraguaya</option>
                         <option value="peru">Peruana</option>
-                        <option value="chile">Chilena</option>
                         <option value="uruguay">Uruguaya</option>
-                        <option value="ecuador">Ecuatoriana</option>
-                        <option value="colombia">Colombiana</option>
                         <option value="venezuela">Venezolana</option>
-                        <option value="brazil">Brasileña</option>
                     </select>
                 </form>
             </div>
@@ -120,14 +130,13 @@ function addPassengerForm(passengerQuantity) {
     accordionUpdate();
 }
 
-// Remueve el último formulario para coincidir con la cantidad de pasajeros
 function removePassengerForm() {
     passengerData.removeChild(passengerData.lastElementChild);
 }
 
 const addPassenger = document.getElementById('addPassenger');
 const removePassenger = document.getElementById('removePassenger');
-// Agrega pasajeros, maximo 10
+
 addPassenger.addEventListener('click', () => {
     let passengerQuantity = parseInt(document.getElementById('passengerQuantity').value);
     if(passengerQuantity < 10) {
@@ -137,7 +146,7 @@ addPassenger.addEventListener('click', () => {
     }
 });
 
-// Remueve pasajeros
+
 removePassenger.addEventListener('click', () => {
     let passengerQuantity = parseInt(document.getElementById('passengerQuantity').value);
     if(passengerQuantity > 1) {
@@ -153,15 +162,15 @@ const noDestination = document.getElementById('no-destination');
 const travelToDestination = document.getElementById('travel-time');
 const moonSelect = document.getElementById('moon-select');
 const marsSelect = document.getElementById('mars-select');
-// Dependiendo el destino seleccionado muestra información del mismo
-choosenDestination.addEventListener('change', () => {
-    let status = choosenDestination.value;
-    if (status == 'moon') {
+choosenDestination.value = sessionStorage.getItem('choosen-destination');
+
+function displayDestinationInfo() {
+    if (choosenDestination.value == 'moon') {
         moonSelect.classList.add('active');
         marsSelect.classList.remove('active');
         noDestination.classList.remove('active');
         travelToDestination.innerHTML = `<i class="fa-regular fa-clock"></i> 4 Días`;
-    } else if (status == 'mars') {
+    } else if (choosenDestination.value == 'mars') {
         marsSelect.classList.add('active');
         moonSelect.classList.remove('active');
         noDestination.classList.remove('active');
@@ -171,7 +180,14 @@ choosenDestination.addEventListener('change', () => {
         moonSelect.classList.remove('active');
         noDestination.classList.add('active');
         travelToDestination.innerHTML = `<i class="fa-regular fa-clock"></i> --`;
+        choosenDestination.value = 'none';
     }
+}
+
+displayDestinationInfo();
+// Dependiendo el destino seleccionado muestra información del mismo
+choosenDestination.addEventListener('change', () => {
+    displayDestinationInfo();
 });
 
 const accor = document.getElementsByClassName('accordion');
@@ -180,19 +196,14 @@ function accordionUpdate(){
     for (let i = 0; i < accor.length; i++) {
         accor[i].addEventListener('click', function() {
             this.classList.toggle('open');
-    
-            let accordion__panel = this.nextElementSibling;
-            if (accordion__panel.style.display == 'grid') {
-                accordion__panel.style.display = 'none';
-            } else {
-                accordion__panel.style.display = 'grid';
-            }
+            let accordionPanel = this.nextElementSibling;
+            accordionPanel.style.display = accordionPanel.style.display == 'grid' ?  'none' : 'grid';
         });
     }
 }
 accordionUpdate();
 
-// Funcion que guarda los datos del destino, fecha y cantidad de pasajeros por reserva
+
 function loadTravelInfo() {
     let destination = document.getElementById('destination').value;
     let date = document.getElementById('travelDate').value;
@@ -218,7 +229,7 @@ function loadPassengerInfo() {
     return bookingInfo;
 }
 
-// Funcion que guarda los datos de contacto de cada reserva
+
 function loadBookingContact() {
     let mail = document.getElementById('booking-email').value;
     let areaCode = document.getElementById('phone-area').value;
@@ -228,11 +239,20 @@ function loadBookingContact() {
 }
 
 const submitButton = document.getElementById('form-submit');
-// Cuando el usuario complete todo el formulario y le de click 
-// al boton Finalizar se procede a cargar los datos en el array
 submitButton.addEventListener('click', () => {
     loadTravelInfo();
     loadPassengerInfo();
     loadBookingContact();
     console.log(bookingInfo);
+});
+
+const travelDate = document.getElementById('travelDate');
+travelDate.addEventListener('focus', () => {
+    let today = new Date();
+    let year = today.getFullYear();
+    let month = today.getMonth() + 1;
+    month = month < 10 ? "0" + month : month;
+    let day = today.getDate() + 1;
+    let dateString = `${year}-${month}-${day}`;
+    travelDate.setAttribute('min', dateString);
 });
