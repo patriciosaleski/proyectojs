@@ -98,7 +98,7 @@ function addPassengerForm(passengerQuantity) {
                 <form class="wrapper">
                     <label for="document">Tipo de documento</label>
                     <select name="document" id="passenger-${passengerQuantity}-document">
-                        <option>Seleccione una opción</option>
+                        <option value="" disabled selected>Seleccione una opción</option>
                         <option value="du">Documento Único</option>
                         <option value="passport">Pasaporte</option>
                     </select>
@@ -110,7 +110,7 @@ function addPassengerForm(passengerQuantity) {
                 <form class="wrapper">
                     <label for="nationality">Nacionalidad</label>
                     <select name="nationality" id="passenger-${passengerQuantity}-nationality">
-                        <option>Seleccione una opción</option>
+                        <option value="" disabled selected>Seleccione una opción</option>
                         <option value="argentina">Argentina</option>
                         <option value="bolivia">Boliviana</option>
                         <option value="brazil">Brasileña</option>
@@ -180,7 +180,7 @@ function displayDestinationInfo() {
         moonSelect.classList.remove('active');
         noDestination.classList.add('active');
         travelToDestination.innerHTML = `<i class="fa-regular fa-clock"></i> --`;
-        choosenDestination.value = 'none';
+        choosenDestination.value = '';
     }
 }
 
@@ -216,7 +216,6 @@ function loadTravelInfo() {
 function loadPassengerInfo() {
     let passengerQuantity = document.getElementById('passengerQuantity').value;
     for (let i = 1; i <= passengerQuantity; i++) {
-        console.log(i);
         let name = document.getElementById(`passenger-${i}-name`).value;
         let surname = document.getElementById(`passenger-${i}-surname`).value;
         let bday = document.getElementById(`passenger-${i}-birthday`).value;
@@ -240,9 +239,12 @@ function loadBookingContact() {
 
 const submitButton = document.getElementById('form-submit');
 submitButton.addEventListener('click', () => {
-    loadTravelInfo();
-    loadPassengerInfo();
-    loadBookingContact();
+    formValidation();
+    if (formValidation) {
+        loadTravelInfo();
+        loadPassengerInfo();
+        loadBookingContact();
+    }
     console.log(bookingInfo);
 });
 
@@ -256,3 +258,24 @@ travelDate.addEventListener('focus', () => {
     let dateString = `${year}-${month}-${day}`;
     travelDate.setAttribute('min', dateString);
 });
+
+
+// Form validator
+
+function inputError(array, index) {
+    let targetInput = document.getElementById(array[index].id);
+    targetInput.classList.add('input-error');
+    return false;
+}
+
+function formValidation() {
+    let inputs = document.querySelectorAll('select, input[type="text"], input[type="number"], input[type="date"], input[type="radio"]:checked, input[type="tel"], input[type="email"]');
+    for (let i = 0; i < inputs.length; i++) {
+        inputs[i].value || inputError(inputs, i);
+    }
+    if (inputError == false) {
+        return false;
+    } else {
+        return true;
+    }
+}
