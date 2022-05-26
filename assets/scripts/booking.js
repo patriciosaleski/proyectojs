@@ -29,14 +29,15 @@ class Passenger {
 
 
 class ContactData {
-    constructor (mail, areaCode, phoneNumber){
+    constructor (mail,countryCode ,areaCode, phoneNumber){
         this.mail = mail;
+        this.countryCode = `+${countryCode}`;
         this.areaCode = areaCode;
         this.phoneNumber = phoneNumber;
     }
 
     contactInfo() {
-        console.log(`Datos de contacto: Email ${this.mail} Numero de teléfono: ${this.areaCode} ${this.phoneNumber}`);
+        console.log(`Datos de contacto: Email: ${this.mail} - Numero de teléfono: ${this.countryCode} ${this.areaCode} ${this.phoneNumber}`);
     }
 }
 
@@ -128,10 +129,12 @@ function addPassengerForm(passengerQuantity) {
     </div>
     `
     accordionUpdate();
+    setBirthDay();
 }
 
 function removePassengerForm() {
     passengerData.removeChild(passengerData.lastElementChild);
+    setBirthDay();
 }
 
 const addPassenger = document.getElementById('addPassenger');
@@ -231,16 +234,16 @@ function loadPassengerInfo() {
 
 function loadBookingContact() {
     let mail = document.getElementById('booking-email').value;
+    let countryCode = document.getElementById('country-code').value;
     let areaCode = document.getElementById('phone-area').value;
     let phoneNumber = document.getElementById('phone-number').value;
-    bookingInfo.push(new ContactData(mail, areaCode, phoneNumber));
+    bookingInfo.push(new ContactData(mail,countryCode , areaCode, phoneNumber));
     return bookingInfo;
 }
 
 const submitButton = document.getElementById('form-submit');
 submitButton.addEventListener('click', () => {
-    formValidation();
-    if (formValidation) {
+    if (formValidation()) {
         loadTravelInfo();
         loadPassengerInfo();
         loadBookingContact();
@@ -259,23 +262,84 @@ travelDate.addEventListener('focus', () => {
     travelDate.setAttribute('min', dateString);
 });
 
+function setBirthDay(){
+    let birthDay = document.getElementsByName('birthday');
+    let today = new Date();
+    let year = today.getFullYear();
+    let month = today.getMonth() + 1;
+    month = month < 10 ? "0" + month : month;
+    let day = today.getDate();
+    let dateString = `${year}-${month}-${day}`;
+    for (let i=0; i<birthDay.length; i++){
+        birthDay[i].setAttribute('max', dateString);
+    }
+}
+setBirthDay();
 
 // Form validator
 
-function inputError(array, index) {
-    let targetInput = document.getElementById(array[index].id);
-    targetInput.classList.add('input-error');
-    return false;
+function inputError(array) {
+    let target = array.id
+    document.getElementById(target).classList.add('input-error');
 }
 
-function formValidation() {
-    let inputs = document.querySelectorAll('select, input[type="text"], input[type="number"], input[type="date"], input[type="radio"]:checked, input[type="tel"], input[type="email"]');
-    for (let i = 0; i < inputs.length; i++) {
-        inputs[i].value || inputError(inputs, i);
+function checkPassengerData(){
+    let inputs = document.getElementById('passenger__container').querySelectorAll('select, input[type="text"], input[type="number"], input[type="date"], input[type="radio"]:checked');
+    let validRegex = /^[a-zA-Z]+$/;
+    let pass = true;
+    for (let i = 0; i < inputs.length; i++){
+        if (inputs[i].type == 'text' && inputs[i].value != '' && inputs[i].value.match(validRegex)){
+            continue;
+        } else if (inputs[i].value == '' || !(inputs[i].value.match(validRegex))) {
+            inputError(inputs[i]);
+            pass = false;
+        }
+        if (inputs[i].type == 'select') {
+            inputs[i].value || inputError(inputs[i]);
+        }
+        if (inputs[i].type == 'number' && inputs[i].value != '' && inputs[i].value.match(/^(1|9)\d{1,8}$/)){
+            continue;
+        } else {
+            inputError(inputs[i]);
+            pass = false;
+        }
     }
-    if (inputError == false) {
+}
+
+function checkEmailAddress(){
+    let email = document.querySelector('input[type="email"]');
+    let validRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    if (!(email.value.match(validRegex))) {
+        inputError(email);
         return false;
     } else {
         return true;
     }
+}
+
+function checkPhoneNumber(){
+    let phoneArray = document.querySelectorAll('input[name="country-code"], input[name="area-code"], input[name="phone-number"]');
+    let validRegex = /^\d{1,4}?[-.\s]?\d{1,3}?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/;
+    let number = "";
+    for (let i=0; i<phoneArray.length; i++){
+        number += phoneArray[i].value;
+    }
+    if (number.match(validRegex)){
+        return true;
+    } else {
+        document.getElementById('contact-phone').classList.add('input-error');
+        return false;
+    }
+}
+
+
+function formValidation() {
+    let inputs = document.querySelectorAll('select, input[type="text"], input[type="number"], input[type="date"], input[type="radio"]:checked');
+    let pass = true;
+    for (let i = 0; i < inputs.length; i++) {
+        pass = checkEmailAddress();
+        pass = checkPhoneNumber();
+        pass = checkPassengerData();
+    }
+    return pass;
 }

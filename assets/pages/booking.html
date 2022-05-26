@@ -159,14 +159,18 @@
                     <label for="email">Email</label>
                     <input type="email" name="email" id="booking-email" placeholder="ejemplo@axiom.com">
                 </div>
-                <div class="booking__contact--phone">
+                <div class="booking__contact--phone" id="contact-phone">
+                    <div class="wrapper">
+                        <label for="country-code">País</label>
+                        <input type="number" name="country-code" id="country-code" placeholder="+54">
+                    </div>
                     <div class="wrapper">
                         <label for="area-code">Cod. Area</label>
                         <input type="number" name="area-code" id="phone-area" min="1" max="9999" placeholder="111" required>
                     </div>
                     <div class="wrapper">
                         <label for="phone-number">Teléfono</label>
-                        <input type="tel" name="phone-number" id="phone-number" min="1" placeholder="1234-5678" required>
+                        <input type="tel" name="phone-number" id="phone-number" min="1" placeholder="12345678" required>
                     </div>
                 </div>
             </form>
