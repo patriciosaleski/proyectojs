@@ -77,22 +77,16 @@ function addPassengerForm(passengerQuantity) {
                         <input type="date" name="birthday" id="passenger-${passengerQuantity}-birthday">
                     </div>
                     <div class="passenger__data--birth--gender wrapper">
-                        Sexo
-                        <div class="container">
-                            <div>
-                                <label for="gender">Hombre</label>
-                                <input type="radio" name="passenger-${passengerQuantity}-gender" value="male">
+                                <form class="wrapper">
+                                    <label for="gender">Sexo</label>
+                                    <select name="gender" id="passenger-${passengerQuantity}-gender">
+                                        <option value="" disabled selected>Seleccione una opción</option>
+                                        <option value="male">Hombre</option>
+                                        <option value="female">Mujer</option>
+                                        <option value="other">Otro</option>
+                                    </select>
+                                </form>
                             </div>
-                            <div>
-                                <label for="gender">Mujer</label>
-                                <input type="radio" name="passenger-${passengerQuantity}-gender" value="female">
-                            </div>
-                            <div>
-                                <label for="gender">Otro</label>
-                                <input type="radio" name="passenger-${passengerQuantity}-gender" value="other">
-                            </div>
-                        </div>
-                    </div>
                 </form>
             </div>
             <div class="passenger__data--id">
@@ -106,7 +100,7 @@ function addPassengerForm(passengerQuantity) {
                 </form class="wrapper">
                 <form class="wrapper">
                     <label for="id-number">Número</label>
-                    <input type="number" required min="1" max="120000000" id="passenger-${passengerQuantity}-document-number" placeholder="12.345.678">
+                    <input type="number" name="id-number" required min="1" max="120000000" id="passenger-${passengerQuantity}-document-number" placeholder="12.345.678">
                 </form>
                 <form class="wrapper">
                     <label for="nationality">Nacionalidad</label>
@@ -206,7 +200,6 @@ function accordionUpdate(){
 }
 accordionUpdate();
 
-
 function loadTravelInfo() {
     let destination = document.getElementById('destination').value;
     let date = document.getElementById('travelDate').value;
@@ -222,7 +215,7 @@ function loadPassengerInfo() {
         let name = document.getElementById(`passenger-${i}-name`).value;
         let surname = document.getElementById(`passenger-${i}-surname`).value;
         let bday = document.getElementById(`passenger-${i}-birthday`).value;
-        let sex = document.querySelector(`input[name='passenger-${i}-gender']:checked`).value;
+        let sex = document.getElementById(`passenger-${i}-gender`).value;
         let idType = document.getElementById(`passenger-${i}-document`).value;
         let idNumber = document.getElementById(`passenger-${i}-document-number`).value;
         let nationality = document.getElementById(`passenger-${i}-nationality`).value;
@@ -230,7 +223,6 @@ function loadPassengerInfo() {
     }
     return bookingInfo;
 }
-
 
 function loadBookingContact() {
     let mail = document.getElementById('booking-email').value;
@@ -247,84 +239,109 @@ submitButton.addEventListener('click', () => {
         loadTravelInfo();
         loadPassengerInfo();
         loadBookingContact();
+        Swal.fire(
+            '¡Reserva confirmada!',
+            'La reserva para el viaje ha sido exitosa',
+            'success'
+        );
+        document.getElementById('error-msg').style.display = 'none';
+    } else {
+        Swal.fire(
+            'Ha habido un error',
+            'Uno o mas datos son incorrectos, intente de nuevo.',
+            'error'
+        );
+        document.getElementById('error-msg').style.display = 'block';
     }
     console.log(bookingInfo);
 });
 
 const travelDate = document.getElementById('travelDate');
 travelDate.addEventListener('focus', () => {
-    let today = new Date();
-    let year = today.getFullYear();
-    let month = today.getMonth() + 1;
-    month = month < 10 ? "0" + month : month;
-    let day = today.getDate() + 1;
-    let dateString = `${year}-${month}-${day}`;
-    travelDate.setAttribute('min', dateString);
+    let today = new Date().toISOString().split('T')[0];
+    travelDate.setAttribute('min', today);
 });
 
 function setBirthDay(){
     let birthDay = document.getElementsByName('birthday');
-    let today = new Date();
-    let year = today.getFullYear();
-    let month = today.getMonth() + 1;
-    month = month < 10 ? "0" + month : month;
-    let day = today.getDate();
-    let dateString = `${year}-${month}-${day}`;
-    for (let i=0; i<birthDay.length; i++){
-        birthDay[i].setAttribute('max', dateString);
+    let today = new Date().toISOString().split('T')[0];
+    for (let i=0; i < birthDay.length; i++){
+        birthDay[i].setAttribute('max', today);
     }
 }
 setBirthDay();
 
 // Form validator
-
-function inputError(array) {
-    let target = array.id
-    document.getElementById(target).classList.add('input-error');
+const regEx = {
+    names: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
+    email: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+    phone: /^\d{1,4}?[-.\s]?\d{1,3}?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/,
+    number: /^([1-9]|[1-9]\d{1,7}|1[01]\d{7}|120000000)$/
 }
 
-function checkPassengerData(){
-    let inputs = document.getElementById('passenger__container').querySelectorAll('select, input[type="text"], input[type="number"], input[type="date"], input[type="radio"]:checked');
-    let validRegex = /^[a-zA-Z]+$/;
+function inputError(array, pass){
+    let target = array.id
+    document.getElementById(target).classList.add('input-error');
+    return pass = false;
+}
+
+function isOverEighteen(birthDay){
+	let passengerBirthday = new Date(birthDay);
+	let today = new Date().toISOString().slice(0,10);
+	let passengerAge = ~~((Date.now(today) - passengerBirthday) / (31557600000));
+    return (passengerAge < 18) ? false : true;
+}
+
+function destinyValidation(){
+    let inputs = document.querySelectorAll('select[name="destination"], input[name="date-of-travel"]');
+    for (let i = 0; i < inputs.length; i++){
+        inputs[i].value || inputError(inputs[i]);
+    }
+    return (inputs[0].value && inputs[1].value) ? true : false;
+}
+
+function passengerValidation(){
+    let inputs = document.getElementById('passenger__container').querySelectorAll('select, input[type="text"], input[type="number"], input[type="date"]');
     let pass = true;
     for (let i = 0; i < inputs.length; i++){
-        if (inputs[i].type == 'text' && inputs[i].value != '' && inputs[i].value.match(validRegex)){
-            continue;
-        } else if (inputs[i].value == '' || !(inputs[i].value.match(validRegex))) {
-            inputError(inputs[i]);
-            pass = false;
-        }
-        if (inputs[i].type == 'select') {
-            inputs[i].value || inputError(inputs[i]);
-        }
-        if (inputs[i].type == 'number' && inputs[i].value != '' && inputs[i].value.match(/^(1|9)\d{1,8}$/)){
-            continue;
-        } else {
-            inputError(inputs[i]);
-            pass = false;
+        let object = inputs[i];
+        let name = inputs[i].name;
+        switch (name){
+            case 'name':
+                regEx.names.test(object.value) || inputError(inputs[i]);
+                break;
+            case 'surname':
+                regEx.names.test(object.value) || inputError(inputs[i]);
+                break;
+            case 'birthday':
+                isOverEighteen(object.value) || inputError(inputs[i]);
+                break;
+            case 'document':
+                (object.value == 'du' || object.value == 'passport') || inputError(inputs[i]);
+                break;
+            case 'id-number':
+                regEx.number.test(object.value) || inputError(inputs[i]);
+                break;
+            case 'nationality': case 'gender':
+                object.value != '' || inputError(inputs[i]);
+                break;
         }
     }
+    return pass;
 }
 
 function checkEmailAddress(){
     let email = document.querySelector('input[type="email"]');
-    let validRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-    if (!(email.value.match(validRegex))) {
-        inputError(email);
-        return false;
-    } else {
-        return true;
-    }
+    return (regEx.email.test(email.value)) ? true : false;
 }
 
 function checkPhoneNumber(){
     let phoneArray = document.querySelectorAll('input[name="country-code"], input[name="area-code"], input[name="phone-number"]');
-    let validRegex = /^\d{1,4}?[-.\s]?\d{1,3}?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/;
     let number = "";
     for (let i=0; i<phoneArray.length; i++){
         number += phoneArray[i].value;
     }
-    if (number.match(validRegex)){
+    if (regEx.phone.test(number)){
         return true;
     } else {
         document.getElementById('contact-phone').classList.add('input-error');
@@ -332,14 +349,10 @@ function checkPhoneNumber(){
     }
 }
 
-
-function formValidation() {
-    let inputs = document.querySelectorAll('select, input[type="text"], input[type="number"], input[type="date"], input[type="radio"]:checked');
-    let pass = true;
-    for (let i = 0; i < inputs.length; i++) {
-        pass = checkEmailAddress();
-        pass = checkPhoneNumber();
-        pass = checkPassengerData();
-    }
-    return pass;
+function formValidation(){
+    let a = destinyValidation();
+    let b = passengerValidation();
+    let c = checkEmailAddress();
+    let d = checkPhoneNumber();
+    return a && b && c && d;
 }

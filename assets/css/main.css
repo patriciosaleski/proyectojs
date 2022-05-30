@@ -551,7 +551,11 @@ body .booking {
               height: 3rem;
               padding-left: 1rem; }
           body .booking__passenger--container--data .accordion__panel .passenger__data--birth--gender label {
-            font-size: .8em; }
+            font-size: 1em; }
+          body .booking__passenger--container--data .accordion__panel .passenger__data--birth--gender select {
+            width: 30rem;
+            height: 3rem;
+            padding-left: 1rem; }
           body .booking__passenger--container--data .accordion__panel .passenger__data--birth--gender .container {
             display: flex;
             flex-direction: row;
@@ -560,9 +564,6 @@ body .booking {
             gap: 1.4rem;
             width: 30rem;
             height: 3rem; }
-            body .booking__passenger--container--data .accordion__panel .passenger__data--birth--gender .container input[type=radio] {
-              width: 1.6rem;
-              height: 1.6rem; }
             body .booking__passenger--container--data .accordion__panel .passenger__data--birth--gender .container div {
               display: flex;
               flex-direction: row;
@@ -642,6 +643,19 @@ body .booking {
     transition: all .4s ease; }
     body .booking #form-submit:hover {
       background-color: rgba(100, 100, 100, 0.664); }
+  body .booking #error-msg {
+    width: 50vw;
+    height: auto;
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 0.8em;
+    color: red;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1rem;
+    background-color: rgba(22, 22, 22, 0.664);
+    border: .1rem solid red;
+    display: none; }
   body .booking input[type="date"]::-webkit-inner-spin-button,
   body .booking input[type="date"]::-webkit-calendar-picker-indicator {
     filter: invert(1);

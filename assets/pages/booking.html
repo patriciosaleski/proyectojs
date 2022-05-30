@@ -100,21 +100,15 @@
                                 <input type="date" name="birthday" id="passenger-1-birthday">
                             </div>
                             <div class="passenger__data--birth--gender wrapper">
-                                Sexo
-                                <div class="container">
-                                    <div>
-                                        <label for="gender">Hombre</label>
-                                        <input type="radio" name="passenger-1-gender" value="male">
-                                    </div>
-                                    <div>
-                                        <label for="gender">Mujer</label>
-                                        <input type="radio" name="passenger-1-gender" value="female">
-                                    </div>
-                                    <div>
-                                        <label for="gender">Otro</label>
-                                        <input type="radio" name="passenger-1-gender" value="other">
-                                    </div>
-                                </div>
+                                <form class="wrapper">
+                                    <label for="gender">Sexo</label>
+                                    <select name="gender" id="passenger-1-gender">
+                                        <option value="" disabled selected>Seleccione una opción</option>
+                                        <option value="male">Hombre</option>
+                                        <option value="female">Mujer</option>
+                                        <option value="other">Otro</option>
+                                    </select>
+                                </form>
                             </div>
                         </form>
                     </div>
@@ -129,7 +123,7 @@
                         </form class="wrapper">
                         <form class="wrapper">
                             <label for="id-number">Número</label>
-                            <input type="number" required min="1" max="120000000" id="passenger-1-document-number" placeholder="12.345.678">
+                            <input type="number" name="id-number" required min="1" max="120000000" id="passenger-1-document-number" placeholder="12.345.678">
                         </form>
                         <form class="wrapper">
                             <label for="nationality">Nacionalidad</label>
@@ -162,7 +156,7 @@
                 <div class="booking__contact--phone" id="contact-phone">
                     <div class="wrapper">
                         <label for="country-code">País</label>
-                        <input type="number" name="country-code" id="country-code" placeholder="+54">
+                        <input type="number" name="country-code" id="country-code" placeholder="54">
                     </div>
                     <div class="wrapper">
                         <label for="area-code">Cod. Area</label>
@@ -174,6 +168,10 @@
                     </div>
                 </div>
             </form>
+        </div>
+        <div id="error-msg">
+            <p>Uno o más datos ingresados son inválidos. Verifiquelos e intente nuevamente.</p>
+            <p><i>Todos los campos son obligatorios. Los pasajeros deben ser mayores de 18 años al momento de realizar la reserva.</i></p>
         </div>
         <button id="form-submit">Finalizar Reserva</button>
     </div>
@@ -193,6 +191,8 @@
             </div>
         </div>
     </footer>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../scripts/sweetalert2.all.min.js"></script>
     <script src="../scripts/booking.js"></script>
 </body>
 </html>

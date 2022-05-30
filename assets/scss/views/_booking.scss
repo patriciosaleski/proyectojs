@@ -153,15 +153,16 @@ body {
                                     }
                 
                                     &--gender {
-                                        label {font-size: .8em;}
+                                        label {font-size: 1em;}
+
+                                        select {
+                                            @include size(30rem, 3rem);
+                                            padding-left: 1rem;
+                                        }
                 
                                         .container {
                                             @include flex($align: center, $gap: 1.4rem);
                                             @include size(30rem, 3rem);
-                                            input[type=radio] {
-                                                @include size(1.6rem, 1.6rem);
-                                            }
-                
                                             div {@include flex($align: center, $gap: .5rem);}
                                         }
                                     }
@@ -244,6 +245,16 @@ body {
             &:hover {
                 background-color: rgba(100, 100, 100, 0.664);
             }
+        }
+
+        #error-msg {
+            @include size(50vw, auto);
+            @include primary-font(.8em, $color: red, $align: center);
+            @include push--auto();
+            padding: 1rem;
+            background-color: rgba(22, 22, 22, 0.664);
+            border: .1rem solid red;
+            display: none;
         }
 
         // Cambia el color del icono para seleccionar la fecha de nacimiento
