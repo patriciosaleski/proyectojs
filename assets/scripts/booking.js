@@ -356,3 +356,16 @@ function formValidation(){
     let d = checkPhoneNumber();
     return a && b && c && d;
 }
+
+
+const marsHighTemp = document.getElementById('mars-hi-temp');
+const marsLowTemp = document.getElementById('mars-lo-temp');
+
+fetch('https://mars.nasa.gov/rss/api/?feed=weather&category=msl&feedtype=json')
+.then(response => response.json())
+.then(({soles}) => {
+    let upToDateData = soles[0]
+    marsHighTemp.innerHTML = `Max ${upToDateData.max_temp} °C`
+    marsLowTemp.innerHTML = `Min ${upToDateData.min_temp} °C`
+})
+.catch(error => console.log(error));

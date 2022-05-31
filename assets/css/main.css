@@ -468,6 +468,12 @@ body .booking {
     justify-content: center;
     align-items: center;
     gap: 0; }
+    body .booking__destination--info .temperature-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 1.6rem; }
     body .booking__destination--info--moon, body .booking__destination--info--mars, body .booking__destination--info .no__destination {
       display: none; }
       body .booking__destination--info--moon.active, body .booking__destination--info--mars.active, body .booking__destination--info .no__destination.active {

@@ -70,6 +70,10 @@ body {
                 @include size(50vw, 10rem);
                 @include flex(row, center, center);
 
+                .temperature-container {
+                    @include flex($align: center, $gap: 1.6rem);
+                }
+
                 &--moon, &--mars, .no__destination {
                     display: none;
 
