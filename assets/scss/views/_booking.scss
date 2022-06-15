@@ -204,12 +204,14 @@ body {
         }
 
         &__contact {
-            @include grid(1, 2, $rsize: auto, $rgap: 2rem);
+            @include flex(column);
             @include size(50vw);
             padding: 1rem 2rem 3rem 2rem;
 
             form {
                 @include flex($justify: space-evenly);
+                margin-top: 3rem;
+                width: 100%;
 
                 input {
                     padding-left: 1rem;
@@ -239,7 +241,169 @@ body {
             }
         }
 
-        #form-submit {
+        &__payment {
+            @include flex($align:center);
+            margin: 2rem 0;
+
+            &--details {
+                @include flex(column, $align: center);
+                @include size(40rem, auto);
+                background: rgba(87, 87, 87, 0.4);
+                @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+                    @include planet--blur();
+                    background: rgba(87, 87, 87, 0.2);
+                }
+                padding: 3rem 3rem 0;
+
+                > p {
+                    @include primary-font(1.5em);
+                    margin-bottom: 3rem;
+                }
+
+                .item {
+                    @include flex($justify: space-between);
+                    width: 100%;
+                    border-bottom: .2rem solid rgba(255, 255, 255, 0.2);
+                    margin-bottom: 2rem;
+                    padding-bottom: 1rem;
+
+                    &:nth-child(5){
+                        border: none;
+                    }
+
+                    p {
+                        @include primary-font(.8em, $weight: light);
+                    }
+                }
+            }
+
+            &--total {
+                @include flex(column, $align: center);
+                background: rgba(196, 196, 196, 0.4);
+                @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+                    @include planet--blur();
+                    background: rgba(255, 255, 255, 0.2);
+                }
+                padding: 1rem 3rem;
+
+                .price {
+                    @include flex($justify: space-between);
+                    width: 100%;
+
+                    &:nth-child(-n+2) {
+                        font-size: .8em;
+                    }
+
+                    &:nth-child(2){
+                        font-style: italic;
+                        font-weight: map-get($font--weight, light);
+                    }
+
+                    &:last-of-type {
+                        font-size: 1.2em;
+                        font-weight: map-get($font--weight, bold);
+                        margin-top: 1rem;
+                    }
+                }
+            }
+
+            &--card {
+                @include flex(column);
+                @include size(50rem, auto);
+                background: rgba(87, 87, 87, 0.4);
+                @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+                    @include planet--blur();
+                    background: rgba(87, 87, 87, 0.2);
+                }
+                box-shadow: -6px 0px 9px -3px rgba(0,0,0,0.8);
+                padding: 4rem 6rem;
+
+                p {
+                    @include primary-font(1.6em, $align: center);
+                    width: 100%;
+                    margin-bottom: 4rem;
+                }
+
+                form {
+                    width: 100%;
+
+                    i#card-type {
+                        font-size: 1.5em;
+                        position: absolute;
+                        right: 66px;
+                        top: 165px;
+                    }
+
+                    label {
+                        display: block;
+                    }
+
+                    input {
+                        @include primary-font(.9em, $weight: light);
+                        @include size(100%, 4rem);
+                        padding-left: 1rem;
+                        margin: 1rem 0 3rem 0;
+
+                        &:first-of-type {
+                            margin: 1rem 0 1rem 0;
+                        }
+                    }
+
+                    
+
+                    .row {
+                        @include flex($justify: space-between);
+
+                        input, select {
+                            @include size(8rem, 4rem);
+                            @include primary-font(.9em, $weight: light);
+                            margin: 1rem 0;
+                        }
+
+                        input {
+                            padding: 0;
+                            text-align: center;
+                            margin: 1rem 0;
+                        }
+
+                        a:hover {
+                            cursor: pointer;
+                        }
+                    }
+                }
+
+                button {
+                    @include size(100%, 5rem);
+                    @include primary-font(1.2em, $weight: light);
+                    background-color: map-get($status-color, success);
+                    border: none;
+                    margin-top: 4rem;
+                    transition: all .1s ease-in;
+
+                    &:hover {
+                        transform: scale(1.1);
+                        border: .1rem solid white;
+                    }
+                }
+            }
+
+            button.back {
+                @include size(100%, auto);
+                @include primary-font(1.2em);
+                font-weight: map-get($font--weight , light);
+                border: none;
+                border-radius: 0;
+                padding: 1rem 0;
+                background-color: rgba($color: map-get($status-color , warning), $alpha: .5);
+                transition: all .15s ease-in;
+
+                &:hover {
+                    background-color: rgba($color: map-get($status-color , warning), $alpha: .8);
+                }
+            }
+        }
+
+        button.form--submit {
             @include size(20rem, 4rem);
             @include primary-font(1em, white);
             
@@ -259,6 +423,40 @@ body {
             background-color: rgba(22, 22, 22, 0.664);
             border: .1rem solid red;
             display: none;
+        }
+
+        .wrap {
+            @include flex($justify: center, $align: center);
+            @include size(90vw, 60.8vh);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .loader {
+            @include transform(translateZ(0));
+            @include animation(loading, 1s, linear, infinite);
+            @include size(100vw, 65vh);
+            font-size: 1em;
+            position: fixed;
+            text-indent: -9999em;
+            border-top: .7em solid rgba(255, 255, 255, 0.2);
+            border-right: .7em solid rgba(255, 255, 255, 0.2);
+            border-bottom: .7em solid rgba(255, 255, 255, 0.2);
+            border-left: .7em solid #ffffff;
+            background-color: rgba(25,25,25, .6);
+            z-index: -1;
+
+            &, &:after {
+                @include size(10em, 10em);
+                border-radius: 50%;
+            }
+        }
+
+        @include keyframes(loading) {
+            0% {@include transform(rotate(0deg));}
+            100% {@include transform(rotate(360deg));}
         }
 
         // Cambia el color del icono para seleccionar la fecha de nacimiento

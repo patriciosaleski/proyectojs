@@ -2,57 +2,8 @@ esversion: 6
 
 // - - - - - - - booking.html JS code
 
-const bookingInfo = [];
-
-class Passenger {
-    constructor (name, surname, bday, sex, idType, idNumber, nationality){
-        this.name = name;
-        this.surname = surname;
-        this.bday = bday;
-        this.sex = sex;
-        this.idType = idType;
-        this.idNumber = idNumber;
-        this.nationality = nationality;
-    }
-
-    getBirthday() {
-        let today = new Date();
-        let bday = new Date(this.bday);
-        let yearsLived = today.getFullYear() - bday.getFullYear();  // Devuelve la cantidad de años vivida
-        let monthsLived = today.getMonth() - bday.getMonth();   // Devuelve la cantidad de meses vivida
-        if (monthsLived < 0 || (monthsLived === 0 && today.getDate() < bday.getDate())) {
-            yearsLived--;
-        }
-        console.log(`El pasajero llamado ${this.name} tiene ${yearsLived} años.`);
-    }
-}
-
-
-class ContactData {
-    constructor (mail,countryCode ,areaCode, phoneNumber){
-        this.mail = mail;
-        this.countryCode = `+${countryCode}`;
-        this.areaCode = areaCode;
-        this.phoneNumber = phoneNumber;
-    }
-
-    contactInfo() {
-        console.log(`Datos de contacto: Email: ${this.mail} - Numero de teléfono: ${this.countryCode} ${this.areaCode} ${this.phoneNumber}`);
-    }
-}
-
-
-class TravelInfo {
-    constructor (destination, date, passengers){
-        this.destination = destination;
-        this.date = date;
-        this.passengers = passengers;
-    }
-}
-
-
 const passengerData = document.getElementById('passenger__container');
-// Crea un form por cada pasajero
+// crea un form por cada pasajero
 function addPassengerForm(passengerQuantity) {
         passengerData.innerHTML += `
         <div class="booking__passenger--container--data" id="passenger-${passengerQuantity}">
@@ -126,33 +77,11 @@ function addPassengerForm(passengerQuantity) {
     setBirthDay();
 }
 
+// borra el ultimo formulario de pasajeros creado
 function removePassengerForm() {
     passengerData.removeChild(passengerData.lastElementChild);
     setBirthDay();
 }
-
-const addPassenger = document.getElementById('addPassenger');
-const removePassenger = document.getElementById('removePassenger');
-
-addPassenger.addEventListener('click', () => {
-    let passengerQuantity = parseInt(document.getElementById('passengerQuantity').value);
-    if(passengerQuantity < 10) {
-        passengerQuantity++;
-        document.getElementById('passengerQuantity').value = passengerQuantity;
-        addPassengerForm(passengerQuantity);
-    }
-});
-
-
-removePassenger.addEventListener('click', () => {
-    let passengerQuantity = parseInt(document.getElementById('passengerQuantity').value);
-    if(passengerQuantity > 1) {
-        passengerQuantity--;
-        document.getElementById('passengerQuantity').value = passengerQuantity;
-        removePassengerForm(passengerQuantity);
-    }
-});
-
 
 const choosenDestination = document.getElementById('destination');
 const noDestination = document.getElementById('no-destination');
@@ -180,15 +109,11 @@ function displayDestinationInfo() {
         choosenDestination.value = '';
     }
 }
-
 displayDestinationInfo();
-// Dependiendo el destino seleccionado muestra información del mismo
-choosenDestination.addEventListener('change', () => {
-    displayDestinationInfo();
-});
+
 
 const accor = document.getElementsByClassName('accordion');
-// Funcion para crear el menu desplegable en base a la cantidad de pasajeros ingresada
+// funcion para crear el menu desplegable en base a la cantidad de pasajeros ingresada
 function accordionUpdate(){
     for (let i = 0; i < accor.length; i++) {
         accor[i].addEventListener('click', function() {
@@ -208,7 +133,7 @@ function loadTravelInfo() {
     return bookingInfo;
 }
 
-// Funcion que guarda los datos de cada pasajero por reserva separados
+// funcion que guarda los datos de cada pasajero por reserva separados
 function loadPassengerInfo() {
     let passengerQuantity = document.getElementById('passengerQuantity').value;
     for (let i = 1; i <= passengerQuantity; i++) {
@@ -233,35 +158,7 @@ function loadBookingContact() {
     return bookingInfo;
 }
 
-const submitButton = document.getElementById('form-submit');
-submitButton.addEventListener('click', () => {
-    if (formValidation()) {
-        loadTravelInfo();
-        loadPassengerInfo();
-        loadBookingContact();
-        Swal.fire(
-            '¡Reserva confirmada!',
-            'La reserva para el viaje ha sido exitosa',
-            'success'
-        );
-        document.getElementById('error-msg').style.display = 'none';
-    } else {
-        Swal.fire(
-            'Ha habido un error',
-            'Uno o mas datos son incorrectos, intente de nuevo.',
-            'error'
-        );
-        document.getElementById('error-msg').style.display = 'block';
-    }
-    console.log(bookingInfo);
-});
-
-const travelDate = document.getElementById('travelDate');
-travelDate.addEventListener('focus', () => {
-    let today = new Date().toISOString().split('T')[0];
-    travelDate.setAttribute('min', today);
-});
-
+// previene seleccinar fechas futuras para la fecha de nacimiento
 function setBirthDay(){
     let birthDay = document.getElementsByName('birthday');
     let today = new Date().toISOString().split('T')[0];
@@ -271,101 +168,18 @@ function setBirthDay(){
 }
 setBirthDay();
 
-// Form validator
-const regEx = {
-    names: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
-    email: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
-    phone: /^\d{1,4}?[-.\s]?\d{1,3}?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/,
-    number: /^([1-9]|[1-9]\d{1,7}|1[01]\d{7}|120000000)$/
-}
-
-function inputError(array, pass){
-    let target = array.id
-    document.getElementById(target).classList.add('input-error');
-    return pass = false;
-}
-
-function isOverEighteen(birthDay){
-	let passengerBirthday = new Date(birthDay);
-	let today = new Date().toISOString().slice(0,10);
-	let passengerAge = ~~((Date.now(today) - passengerBirthday) / (31557600000));
-    return (passengerAge < 18) ? false : true;
-}
-
-function destinyValidation(){
-    let inputs = document.querySelectorAll('select[name="destination"], input[name="date-of-travel"]');
-    for (let i = 0; i < inputs.length; i++){
-        inputs[i].value || inputError(inputs[i]);
-    }
-    return (inputs[0].value && inputs[1].value) ? true : false;
-}
-
-function passengerValidation(){
-    let inputs = document.getElementById('passenger__container').querySelectorAll('select, input[type="text"], input[type="number"], input[type="date"]');
-    let pass = true;
-    for (let i = 0; i < inputs.length; i++){
-        let object = inputs[i];
-        let name = inputs[i].name;
-        switch (name){
-            case 'name':
-                regEx.names.test(object.value) || inputError(inputs[i]);
-                break;
-            case 'surname':
-                regEx.names.test(object.value) || inputError(inputs[i]);
-                break;
-            case 'birthday':
-                isOverEighteen(object.value) || inputError(inputs[i]);
-                break;
-            case 'document':
-                (object.value == 'du' || object.value == 'passport') || inputError(inputs[i]);
-                break;
-            case 'id-number':
-                regEx.number.test(object.value) || inputError(inputs[i]);
-                break;
-            case 'nationality': case 'gender':
-                object.value != '' || inputError(inputs[i]);
-                break;
+// simulador de loading
+function displayFakeLoading(){
+    const element = document.getElementById('fake-loading');
+    const paymentForm = document.getElementById('payment--form');
+    element.classList.remove('hidden');
+    for (let sibling of element.parentNode.children) {
+        if (sibling != element) {
+            sibling.classList.add('hidden');
         }
     }
-    return pass;
+    setTimeout(() => {
+        element.classList.add('hidden');
+        paymentForm.classList.remove('hidden');
+    }, '5500')
 }
-
-function checkEmailAddress(){
-    let email = document.querySelector('input[type="email"]');
-    return (regEx.email.test(email.value)) ? true : false;
-}
-
-function checkPhoneNumber(){
-    let phoneArray = document.querySelectorAll('input[name="country-code"], input[name="area-code"], input[name="phone-number"]');
-    let number = "";
-    for (let i=0; i<phoneArray.length; i++){
-        number += phoneArray[i].value;
-    }
-    if (regEx.phone.test(number)){
-        return true;
-    } else {
-        document.getElementById('contact-phone').classList.add('input-error');
-        return false;
-    }
-}
-
-function formValidation(){
-    let a = destinyValidation();
-    let b = passengerValidation();
-    let c = checkEmailAddress();
-    let d = checkPhoneNumber();
-    return a && b && c && d;
-}
-
-
-const marsHighTemp = document.getElementById('mars-hi-temp');
-const marsLowTemp = document.getElementById('mars-lo-temp');
-
-fetch('https://mars.nasa.gov/rss/api/?feed=weather&category=msl&feedtype=json')
-.then(response => response.json())
-.then(({soles}) => {
-    let upToDateData = soles[0]
-    marsHighTemp.innerHTML = `Max ${upToDateData.max_temp} °C`
-    marsLowTemp.innerHTML = `Min ${upToDateData.min_temp} °C`
-})
-.catch(error => console.log(error));

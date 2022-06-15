@@ -26,6 +26,13 @@ $status-color: (
     "error": #EC493B
 );
 
+$font--weight: (
+    light: 300,
+    regular: 400,
+    semi: 500,
+    bold: 700
+);
+
 @keyframes float {
 	0% {
 		transform: translatey(0px);

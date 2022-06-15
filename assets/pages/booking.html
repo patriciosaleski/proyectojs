@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reserva - Axiom Space</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css" />
     <link rel="stylesheet" href="../css/main.css">
     <script src="https://kit.fontawesome.com/1aee70cc01.js" crossorigin="anonymous"></script>
 </head>
@@ -39,7 +40,7 @@
         </nav>
     </header>
 
-    <div class="booking">
+    <div id="booking" class="booking">
         <div class="booking__destination--date">
             <form>
                 <select name="destination" id="destination">
@@ -69,8 +70,8 @@
                 <div class="temperature-container">
                     <p>Temperatura:</p>
                     <div class="wrapper">
-                        <p id="mars-hi-temp">-123</p>
-                        <p id="mars-lo-temp">-124</p>
+                        <p id="mars-hi-temp"></p>
+                        <p id="mars-lo-temp"></p>
                     </div>
                 </div>
                 <img src="../img/mars.png" alt="Foto de Marte">
@@ -181,11 +182,99 @@
                 </div>
             </form>
         </div>
-        <div id="error-msg">
-            <p>Uno o más datos ingresados son inválidos. Verifiquelos e intente nuevamente.</p>
-            <p><i>Todos los campos son obligatorios. Los pasajeros deben ser mayores de 18 años al momento de realizar la reserva.</i></p>
+
+        <button class="form--submit" id="form-submit">Finalizar Reserva</button>
+        
+        <div id="payment--form" class="booking__payment hidden">
+            <div>
+                <div class="booking__payment--details">
+                    <p>Resumen de reserva</p>
+                    <div class="item">
+                        <p>Transporte</p>
+                        <p id="transport-price">USD 6541</p>
+                    </div>
+                    <div class="item">
+                        <p>Vuelo</p>
+                        <p id="flight-price">USD 2000</p>
+                    </div>
+                    <div class="item">
+                        <p>Tasas Aeroportuarias</p>
+                        <p id="airport-fees">USD 254</p>
+                    </div>
+                    <div class="item">
+                        <p>Tasas de Seguridad</p>
+                        <p id="security-fees">USD 124</p>
+                    </div>
+                </div>
+
+                <div class="booking__payment--total">
+                    <div class="price">
+                        <p>Subtotal:</p>
+                        <p id="price-subtotal">USD 8919</p>
+                    </div>
+                
+                    <div class="price">
+                        <p>IVA 21%:</p>
+                        <p id="vat">USD 1872,99</p>
+                    </div>
+                
+                    <div class="price">
+                        <p>Total:</p>
+                        <p id="price-total">USD 10791,99</p>
+                    </div>
+                </div>
+
+                <button class="back" id="back-to-order-review"><i class="fa-solid fa-arrow-left"></i> Volver atrás</button>
+            </div>
+
+            <div class="booking__payment--card">
+                <p>Detalles del pago</p>
+                <form>
+                    <label for="card-number">Numero de tarjeta</label>
+                    <input type="tel" class="card-number" name="card-number" placeholder="XXXX XXXX XXXX XXXX">
+                    <i id="card-type" class="fa-brands"></i>
+                    <label for="card-name">Nombre en la tarjeta</label>
+                    <input type="text" name="card-name" placeholder="Nombre completo">
+                    <div class="row">
+                        <div>
+                            <label>Vencimiento</label>
+                            <select name="expiration-month">
+                                <option value="" selected disabled>MM</option>
+                                <option value="1">01</option>
+                                <option value="2">02</option>
+                                <option value="3">03</option>
+                                <option value="4">04</option>
+                                <option value="5">05</option>
+                                <option value="6">06</option>
+                                <option value="7">07</option>
+                                <option value="8">08</option>
+                                <option value="9">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                            </select>
+                            <input type="number" id="expiration-year" placeholder="AAAA">
+                        </div>
+                        <div>
+                            <label for="card-pin">CSC <a id="CVVHelp"><i class="fa-regular fa-circle-question"></i></a></label>
+                            <input type="number" class="card-pin" name="card-pin" placeholder="XXX">
+                        </div>
+                    </div>
+                </form>
+                <button id="pay">Pagar ahora</button>
+            </div>
         </div>
-        <button id="form-submit">Finalizar Reserva</button>
+
+        <div id="error-msg">
+        </div>
+        
+        <div id="fake-loading" class="wrap hidden">
+            <div class="loader">Loading</div>
+            Cargando
+        </div>
+
+
+
     </div>
 
     <footer>
@@ -203,8 +292,13 @@
             </div>
         </div>
     </footer>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="../scripts/sweetalert2.all.min.js"></script>
+    <!-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.17/dist/sweetalert2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/cleave.js@1.6.0/dist/cleave.min.js"></script>
     <script src="../scripts/booking.js"></script>
+    <script src="../scripts/api.js"></script>
+    <script src="../scripts/classes.js"></script>
+    <script src="../scripts/formValidation.js"></script>
+    <script src="../scripts/events.js"></script>
 </body>
 </html>

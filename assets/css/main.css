@@ -600,12 +600,11 @@ body .booking {
     body .booking__passenger--container--data label {
       font-size: 1em; }
   body .booking__contact {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    grid-template-rows: repeat(2, auto);
-    justify-content: start;
-    align-content: center;
-    row-gap: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 0;
     width: 50vw;
     padding: 1rem 2rem 3rem 2rem; }
     body .booking__contact form {
@@ -613,7 +612,9 @@ body .booking {
       flex-direction: row;
       justify-content: space-evenly;
       align-items: flex-start;
-      gap: 0; }
+      gap: 0;
+      margin-top: 3rem;
+      width: 100%; }
       body .booking__contact form input {
         padding-left: 1rem; }
         body .booking__contact form input::placeholder {
@@ -639,7 +640,164 @@ body .booking {
         justify-content: flex-start;
         align-items: flex-start;
         gap: 4rem; }
-  body .booking #form-submit {
+  body .booking__payment {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0;
+    margin: 2rem 0; }
+    body .booking__payment--details {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 0;
+      width: 40rem;
+      height: auto;
+      background: rgba(87, 87, 87, 0.4);
+      padding: 3rem 3rem 0; }
+      @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+        body .booking__payment--details {
+          backdrop-filter: blur(4px);
+          -webkit-backdrop-filter: blur(4px);
+          background: rgba(87, 87, 87, 0.2); } }
+      body .booking__payment--details > p {
+        font-family: 'Noto Sans', sans-serif;
+        font-size: 1.5em;
+        margin-bottom: 3rem; }
+      body .booking__payment--details .item {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 0;
+        width: 100%;
+        border-bottom: 0.2rem solid rgba(255, 255, 255, 0.2);
+        margin-bottom: 2rem;
+        padding-bottom: 1rem; }
+        body .booking__payment--details .item:nth-child(5) {
+          border: none; }
+        body .booking__payment--details .item p {
+          font-family: 'Noto Sans', sans-serif;
+          font-size: 0.8em;
+          font-weight: 300; }
+    body .booking__payment--total {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 0;
+      background: rgba(196, 196, 196, 0.4);
+      padding: 1rem 3rem; }
+      @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+        body .booking__payment--total {
+          backdrop-filter: blur(4px);
+          -webkit-backdrop-filter: blur(4px);
+          background: rgba(255, 255, 255, 0.2); } }
+      body .booking__payment--total .price {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 0;
+        width: 100%; }
+        body .booking__payment--total .price:nth-child(-n+2) {
+          font-size: .8em; }
+        body .booking__payment--total .price:nth-child(2) {
+          font-style: italic;
+          font-weight: 300; }
+        body .booking__payment--total .price:last-of-type {
+          font-size: 1.2em;
+          font-weight: 700;
+          margin-top: 1rem; }
+    body .booking__payment--card {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      gap: 0;
+      width: 50rem;
+      height: auto;
+      background: rgba(87, 87, 87, 0.4);
+      box-shadow: -6px 0px 9px -3px rgba(0, 0, 0, 0.8);
+      padding: 4rem 6rem; }
+      @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+        body .booking__payment--card {
+          backdrop-filter: blur(4px);
+          -webkit-backdrop-filter: blur(4px);
+          background: rgba(87, 87, 87, 0.2); } }
+      body .booking__payment--card p {
+        font-family: 'Noto Sans', sans-serif;
+        font-size: 1.6em;
+        text-align: center;
+        width: 100%;
+        margin-bottom: 4rem; }
+      body .booking__payment--card form {
+        width: 100%; }
+        body .booking__payment--card form i#card-type {
+          font-size: 1.5em;
+          position: absolute;
+          right: 66px;
+          top: 165px; }
+        body .booking__payment--card form label {
+          display: block; }
+        body .booking__payment--card form input {
+          font-family: 'Noto Sans', sans-serif;
+          font-size: 0.9em;
+          font-weight: 300;
+          width: 100%;
+          height: 4rem;
+          padding-left: 1rem;
+          margin: 1rem 0 3rem 0; }
+          body .booking__payment--card form input:first-of-type {
+            margin: 1rem 0 1rem 0; }
+        body .booking__payment--card form .row {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: flex-start;
+          gap: 0; }
+          body .booking__payment--card form .row input, body .booking__payment--card form .row select {
+            width: 8rem;
+            height: 4rem;
+            font-family: 'Noto Sans', sans-serif;
+            font-size: 0.9em;
+            font-weight: 300;
+            margin: 1rem 0; }
+          body .booking__payment--card form .row input {
+            padding: 0;
+            text-align: center;
+            margin: 1rem 0; }
+          body .booking__payment--card form .row a:hover {
+            cursor: pointer; }
+      body .booking__payment--card button {
+        width: 100%;
+        height: 5rem;
+        font-family: 'Noto Sans', sans-serif;
+        font-size: 1.2em;
+        font-weight: 300;
+        background-color: #5FBB46;
+        border: none;
+        margin-top: 4rem;
+        transition: all .1s ease-in; }
+        body .booking__payment--card button:hover {
+          transform: scale(1.1);
+          border: .1rem solid white; }
+    body .booking__payment button.back {
+      width: 100%;
+      height: auto;
+      font-family: 'Noto Sans', sans-serif;
+      font-size: 1.2em;
+      font-weight: 300;
+      border: none;
+      border-radius: 0;
+      padding: 1rem 0;
+      background-color: rgba(255, 196, 22, 0.5);
+      transition: all .15s ease-in; }
+      body .booking__payment button.back:hover {
+        background-color: rgba(255, 196, 22, 0.8); }
+  body .booking button.form--submit {
     width: 20rem;
     height: 4rem;
     font-family: 'Noto Sans', sans-serif;
@@ -647,7 +805,7 @@ body .booking {
     color: white;
     border-radius: 3rem;
     transition: all .4s ease; }
-    body .booking #form-submit:hover {
+    body .booking button.form--submit:hover {
       background-color: rgba(100, 100, 100, 0.664); }
   body .booking #error-msg {
     width: 50vw;
@@ -662,6 +820,77 @@ body .booking {
     background-color: rgba(22, 22, 22, 0.664);
     border: .1rem solid red;
     display: none; }
+  body .booking .wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    width: 90vw;
+    height: 60.8vh; }
+  body .booking .hidden {
+    display: none; }
+  body .booking .loader {
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-animation: loading 1s linear infinite;
+    animation: loading 1s linear infinite;
+    width: 100vw;
+    height: 65vh;
+    font-size: 1em;
+    position: fixed;
+    text-indent: -9999em;
+    border-top: 0.7em solid rgba(255, 255, 255, 0.2);
+    border-right: 0.7em solid rgba(255, 255, 255, 0.2);
+    border-bottom: 0.7em solid rgba(255, 255, 255, 0.2);
+    border-left: .7em solid #ffffff;
+    background-color: rgba(25, 25, 25, 0.6);
+    z-index: -1; }
+    body .booking .loader, body .booking .loader:after {
+      width: 10em;
+      height: 10em;
+      border-radius: 50%; }
+
+@-webkit-keyframes loading {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg); } }
+
+@-moz-keyframes loading {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg); } }
+
+@-ms-keyframes loading {
+  body .booking 0% {
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg); }
+  body .booking 100% {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg); } }
+
+@keyframes loading {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg); } }
   body .booking input[type="date"]::-webkit-inner-spin-button,
   body .booking input[type="date"]::-webkit-calendar-picker-indicator {
     filter: invert(1);
@@ -678,7 +907,9 @@ body .input-error {
 
 body {
   background: linear-gradient(rgba(0, 0, 0, 0.48), rgba(0, 0, 0, 0.48)), url(../img/earth.jpg);
-  background-position-y: center; }
+  background-position-y: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed; }
   body .home {
     display: flex;
     flex-direction: row;
@@ -737,3 +968,22 @@ body {
         body .home__explore--button:hover {
           transform: scale(1.25);
           box-shadow: 0px 0px 15px #fff; }
+
+.swal2-container {
+  font-family: 'Noto Sans', sans-serif; }
+
+.swal2-popup {
+  width: 40em;
+  border: #3E3E3E .1rem solid;
+  border-radius: 1rem; }
+
+.swal2-title {
+  font-size: 2.3em; }
+
+.swal2-styled.swal2-confirm {
+  background-color: #3E3E3E; }
+  .swal2-styled.swal2-confirm:focus {
+    box-shadow: 0 0 0 3px rgba(206, 206, 206, 0.5); }
+
+.swal2-container.swal2-backdrop-show, .swal2-container.swal2-noanimation {
+  background: rgba(0, 0, 0, 0.5); }

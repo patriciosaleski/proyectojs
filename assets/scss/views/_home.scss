@@ -5,6 +5,8 @@ body {
     ),
     url(../img/earth.jpg);
     background-position-y: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 
     .home {
         @include flex($justify: center, $align: center, $gap: 30rem);
