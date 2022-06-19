@@ -37,11 +37,8 @@ body {
                     }
 
                     input {
+                        @include size(15rem, 3rem);
                         text-align: center;
-
-                        &[type=date] {
-                            @include size(15rem, 3rem);
-                        }
 
                         &[type=button] {
                             @include size(2.6rem, 2.6rem);
@@ -149,10 +146,8 @@ body {
                                         @include flex($justify: space-evenly);
                 
                                         input {
-                                            &[type=date] {
-                                                @include size(30rem, 3rem);
-                                                padding-left: 1rem;
-                                            }
+                                            @include size(30rem, 3rem);
+                                            padding-left: 1rem;
                                         }
                                     }
                 
@@ -189,10 +184,6 @@ body {
                                 }
                             }
                         }
-                    }
-    
-                    .wrapper {
-                        @include flex(column, $gap: .5rem);
                     }
     
                     h2 {justify-self: start}
@@ -273,6 +264,10 @@ body {
 
                     p {
                         @include primary-font(.8em, $weight: light);
+
+                        &::before {
+                            content: 'USD ';
+                        }
                     }
                 }
             }
@@ -290,8 +285,18 @@ body {
                     @include flex($justify: space-between);
                     width: 100%;
 
+                    .flex-column {
+                        align-items: flex-end;
+                    }
+
+                    i {
+                        font-size: .6em;
+                        font-weight: map-get($font--weight, light);
+                    }
+
                     &:nth-child(-n+2) {
                         font-size: .8em;
+                        margin-bottom: .5rem;
                     }
 
                     &:nth-child(2){
@@ -332,6 +337,15 @@ body {
                         position: absolute;
                         right: 66px;
                         top: 165px;
+                    }
+
+                    @-moz-document url-prefix() {
+                        i#card-type {
+                            font-size: 1.5em;
+                            position: absolute;
+                            right: 576px;
+                            top: 398px;
+                        }
                     }
 
                     label {
@@ -430,6 +444,10 @@ body {
             @include size(90vw, 60.8vh);
         }
 
+        .flex-column {
+            @include flex(column, $gap: .5rem);
+        }
+
         .hidden {
             display: none;
         }
@@ -482,4 +500,3 @@ body {
         border: map-get($status-color, error) .1rem solid!important;
     }
 }
-

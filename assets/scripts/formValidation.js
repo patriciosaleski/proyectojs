@@ -2,13 +2,16 @@ const regEx = {
     names: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
     email: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
     phone: /^\d{1,4}?[-.\s]?\d{1,3}?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/,
-    number: /^([1-9]|[1-9]\d{1,7}|1[01]\d{7}|120000000)$/
+    number: /^([1-9]|[1-9]\d{1,7}|1[01]\d{7}|120000000)$/,
+    cardNumber: /^(?:\d[ \-]*){15,16}$/,
+    cardPin: /^(?:\d[ \-]*){3,4}$/
 }
 
-function inputError(array, pass){
+function inputError(array, log){
     let target = array.id
     document.getElementById(target).classList.add('input-error');
-    return pass = false;
+    log.push(false);
+    return;
 }
 
 function isOverEighteen(birthDay){
@@ -28,29 +31,29 @@ function destinyValidation(){
 
 function passengerValidation(){
     let inputs = document.getElementById('passenger__container').querySelectorAll('select, input[type="text"], input[type="number"], input[type="date"]');
-    let pass = true;
+    let log = [];
     for (let i = 0; i < inputs.length; i++){
         let object = inputs[i];
         let name = inputs[i].name;
         switch (name){
             case 'name': case 'surname':
-                regEx.names.test(object.value) || inputError(inputs[i]);
+                regEx.names.test(object.value) || inputError(inputs[i], log);
                 break;
             case 'birthday':
-                isOverEighteen(object.value) || inputError(inputs[i]);
+                isOverEighteen(object.value) || inputError(inputs[i], log);
                 break;
             case 'document':
-                (object.value == 'du' || object.value == 'passport') || inputError(inputs[i]);
+                (object.value == 'du' || object.value == 'passport') || inputError(inputs[i], log);
                 break;
             case 'id-number':
-                regEx.number.test(object.value) || inputError(inputs[i]);
+                regEx.number.test(object.value) || inputError(inputs[i], log);
                 break;
             case 'nationality': case 'gender':
-                object.value != '' || inputError(inputs[i]);
+                object.value != '' || inputError(inputs[i], log);
                 break;
         }
     }
-    return pass;
+    return (!log.includes(false)) ? true : false;
 }
 
 function checkEmailAddress(){
@@ -78,4 +81,35 @@ function formValidation(){
     let c = checkEmailAddress();
     let d = checkPhoneNumber();
     return a && b && c && d;
+}
+
+// validacion del metodo de pago
+function payment(){
+    const inputs = document.querySelectorAll('.booking__payment--card input, .booking__payment--card select');
+    const CURRENT_MONTH = new Date().toISOString().split('-')[1];
+    const CURRENT_YEAR = new Date().toISOString().split('-')[0];
+    let log = [];
+    for (let i = 0; i < inputs.length; i++){
+        let object = inputs[i];
+        let name =  inputs[i].name;
+        switch (name){
+            case 'card-number':
+                regEx.cardNumber.test(object.value) || inputError(inputs[i], log);
+                break;
+            case 'card-name':
+                regEx.names.test(object.value) || inputError(inputs[i], log);
+                break;
+            case 'expiration-month':
+                (object.value != '' && object.value >= CURRENT_MONTH) || inputError(inputs[i], log);
+                break;
+            case 'expiration-year':
+                (object.value != '' && object.value >= CURRENT_YEAR) || inputError(inputs[i], log);
+                break;
+            case 'card-pin':
+                regEx.cardPin.test(object.value) || inputError(inputs[i], log);
+                break;
+        }
+    }
+    console.log((!log.includes(false)) ? true : false);
+    return (!log.includes(false)) ? true : false;
 }

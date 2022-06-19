@@ -438,10 +438,9 @@ body .booking {
         height: 3rem;
         padding: 0 0.6rem; }
       body .booking__destination--date form input {
+        width: 15rem;
+        height: 3rem;
         text-align: center; }
-        body .booking__destination--date form input[type=date] {
-          width: 15rem;
-          height: 3rem; }
         body .booking__destination--date form input[type=button] {
           width: 2.6rem;
           height: 2.6rem;
@@ -552,7 +551,7 @@ body .booking {
             justify-content: space-evenly;
             align-items: flex-start;
             gap: 0; }
-            body .booking__passenger--container--data .accordion__panel .passenger__data--birth form input[type=date] {
+            body .booking__passenger--container--data .accordion__panel .passenger__data--birth form input {
               width: 30rem;
               height: 3rem;
               padding-left: 1rem; }
@@ -589,12 +588,6 @@ body .booking {
             padding-left: 1rem; }
           body .booking__passenger--container--data .accordion__panel .passenger__data--id form.wrapper:not(:first-child):not(:last-child) input {
             width: 11rem; }
-    body .booking__passenger--container--data .wrapper {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: flex-start;
-      gap: 0.5rem; }
     body .booking__passenger--container--data h2 {
       justify-self: start; }
     body .booking__passenger--container--data label {
@@ -682,6 +675,8 @@ body .booking {
           font-family: 'Noto Sans', sans-serif;
           font-size: 0.8em;
           font-weight: 300; }
+          body .booking__payment--details .item p::before {
+            content: 'USD '; }
     body .booking__payment--total {
       display: flex;
       flex-direction: column;
@@ -702,8 +697,14 @@ body .booking {
         align-items: flex-start;
         gap: 0;
         width: 100%; }
+        body .booking__payment--total .price .flex-column {
+          align-items: flex-end; }
+        body .booking__payment--total .price i {
+          font-size: .6em;
+          font-weight: 300; }
         body .booking__payment--total .price:nth-child(-n+2) {
-          font-size: .8em; }
+          font-size: .8em;
+          margin-bottom: .5rem; }
         body .booking__payment--total .price:nth-child(2) {
           font-style: italic;
           font-weight: 300; }
@@ -740,6 +741,13 @@ body .booking {
           position: absolute;
           right: 66px;
           top: 165px; }
+
+@-moz-document url-prefix() {
+  body .booking__payment--card form i#card-type {
+    font-size: 1.5em;
+    position: absolute;
+    right: 576px;
+    top: 398px; } }
         body .booking__payment--card form label {
           display: block; }
         body .booking__payment--card form input {
@@ -828,6 +836,12 @@ body .booking {
     gap: 0;
     width: 90vw;
     height: 60.8vh; }
+  body .booking .flex-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 0.5rem; }
   body .booking .hidden {
     display: none; }
   body .booking .loader {

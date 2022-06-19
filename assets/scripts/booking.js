@@ -2,6 +2,8 @@ esversion: 6
 
 // - - - - - - - booking.html JS code
 
+const TODAY = new Date().toISOString().split('T')[0]; // devuelve AAAA-MM-DD del dia actual UTC-3
+
 const passengerData = document.getElementById('passenger__container');
 // crea un form por cada pasajero
 function addPassengerForm(passengerQuantity) {
@@ -11,11 +13,11 @@ function addPassengerForm(passengerQuantity) {
         <div class="accordion__panel">
             <div class="passenger__data--name">
                 <form>
-                    <div class="wrapper">
+                    <div class="flex-column">
                         <label for="name">Nombres</label>
                         <input type="text" name="name" id="passenger-${passengerQuantity}-name" placeholder="Ingrese su nombre" required>
                     </div>
-                    <div class="wrapper">
+                    <div class="flex-column">
                         <label for="surname">Apellidos</label>
                         <input type="text" name="surname" id="passenger-${passengerQuantity}-surname" placeholder="Ingrese su apellido" required>
                     </div>
@@ -23,12 +25,12 @@ function addPassengerForm(passengerQuantity) {
             </div>
             <div class="passenger__data--birth">
                 <form>
-                    <div class="wrapper">
+                    <div class="flex-column">
                         <label for="birthday">Fecha de nacimiento</label>
-                        <input type="date" name="birthday" id="passenger-${passengerQuantity}-birthday">
+                        <input name="birthday" class="birthday" id="passenger-${passengerQuantity}-birthday" placeholder="AAAA-MM-DD">
                     </div>
-                    <div class="passenger__data--birth--gender wrapper">
-                                <form class="wrapper">
+                    <div class="passenger__data--birth--gender flex-column">
+                                <form class="flex-column">
                                     <label for="gender">Sexo</label>
                                     <select name="gender" id="passenger-${passengerQuantity}-gender">
                                         <option value="" disabled selected>Seleccione una opción</option>
@@ -41,19 +43,19 @@ function addPassengerForm(passengerQuantity) {
                 </form>
             </div>
             <div class="passenger__data--id">
-                <form class="wrapper">
+                <form class="flex-column">
                     <label for="document">Tipo de documento</label>
                     <select name="document" id="passenger-${passengerQuantity}-document">
                         <option value="" disabled selected>Seleccione una opción</option>
                         <option value="du">Documento Único</option>
                         <option value="passport">Pasaporte</option>
                     </select>
-                </form class="wrapper">
-                <form class="wrapper">
+                </form class="flex-column">
+                <form class="flex-column">
                     <label for="id-number">Número</label>
-                    <input type="number" name="id-number" required min="1" max="120000000" id="passenger-${passengerQuantity}-document-number" placeholder="12.345.678">
+                    <input type="number" class="id-number" name="id-number" required id="passenger-${passengerQuantity}-document-number" placeholder="12.345.678">
                 </form>
-                <form class="wrapper">
+                <form class="flex-column">
                     <label for="nationality">Nacionalidad</label>
                     <select name="nationality" id="passenger-${passengerQuantity}-nationality">
                         <option value="" disabled selected>Seleccione una opción</option>
@@ -74,13 +76,11 @@ function addPassengerForm(passengerQuantity) {
     </div>
     `
     accordionUpdate();
-    setBirthDay();
 }
 
 // borra el ultimo formulario de pasajeros creado
 function removePassengerForm() {
     passengerData.removeChild(passengerData.lastElementChild);
-    setBirthDay();
 }
 
 const choosenDestination = document.getElementById('destination');
@@ -158,16 +158,6 @@ function loadBookingContact() {
     return bookingInfo;
 }
 
-// previene seleccinar fechas futuras para la fecha de nacimiento
-function setBirthDay(){
-    let birthDay = document.getElementsByName('birthday');
-    let today = new Date().toISOString().split('T')[0];
-    for (let i=0; i < birthDay.length; i++){
-        birthDay[i].setAttribute('max', today);
-    }
-}
-setBirthDay();
-
 // simulador de loading
 function displayFakeLoading(){
     const element = document.getElementById('fake-loading');
@@ -182,4 +172,47 @@ function displayFakeLoading(){
         element.classList.add('hidden');
         paymentForm.classList.remove('hidden');
     }, '5500')
+}
+
+const transportPrice = document.getElementById('transport-price');
+const travelPrice = document.getElementById('travel-price');
+const airportFees = document.getElementById('airport-fees');
+const securityFees = document.getElementById('security-fees');
+const subTotal = document.getElementById('price-subtotal');
+const IVAPercent = document.getElementById('price-iva');
+const total = document.getElementById('price-total');
+
+// precios expresados en USD
+const PRICES = {
+    flightToCape: 850,
+    moon: 125000,
+    mars: 450000,
+    airportFees: 25,
+    securityFees: 55,
+    IVA: 0.07 // 7%
+}
+
+function removeInputError(){
+    const inputsWithError = document.querySelectorAll('.input-error');
+    inputsWithError.forEach(el => el.classList.remove('input-error'));
+}
+
+function generatePrices(){
+    const pricesParent = document.getElementsByClassName('item');
+    let passengers = document.getElementById('passengerQuantity').value;
+    let destination = document.getElementById('destination').value;
+    let price = 0;
+
+    transportPrice.innerHTML = `${Math.round(PRICES.flightToCape * passengers)}`;
+    travelPrice.innerHTML = `${Math.round(PRICES[destination] * passengers)}`
+    airportFees.innerHTML = `${Math.floor(PRICES.airportFees * passengers)}`
+    securityFees.innerHTML = `${Math.floor(PRICES.securityFees * passengers)}`
+
+    for (let i = 0; i < pricesParent.length; i++) {
+        price += parseInt(pricesParent[i].children[1].innerHTML);
+    }
+
+    subTotal.innerHTML = `USD ${price}`
+    IVAPercent.innerHTML = `USD ${(price * PRICES.IVA).toFixed(2)}`
+    total.innerHTML = `USD ${price + (price * PRICES.IVA)}`
 }

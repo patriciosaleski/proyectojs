@@ -72,3 +72,56 @@ let cardCVVCheck = new Cleave('.card-pin', {
     numericOnly: true,
     blocks: [3]
 });
+
+let cardExpirationYear = new Cleave('#expiration-year', {
+    date: true,
+    datePattern: ['Y']
+});
+
+// en caso de que se cree un nuevo formulario para un pasajero se le aplican las restricciones a los inputs
+function setLimits(){
+    // solo permite que el input de fecha de nacimiento de los pasajeros no sea mayor a la fecha de hoy
+    document.querySelectorAll('.birthday').forEach(function(el){
+        new Cleave(el, {
+            date: true,
+            dateMax: TODAY,
+            datePattern: ['Y', 'm', 'd'],
+            delimiter: '-'
+        })
+    })
+
+    document.querySelectorAll('.id-number').forEach(function(el){
+        new Cleave(el, {
+            blocks: [9],
+            numericOnly: true,
+            numeralDecimalMark: ''
+        })
+    })
+}
+setLimits();
+
+// solo permite que la fecha de reserva sea en una fecha futura
+new Cleave('input[name="date-of-travel"]', {
+    date: true,
+    dateMin: TODAY,
+    datePattern: ['Y', 'm', 'd'],
+    delimiter: '-'
+})
+
+new Cleave('input[name="country-code"]', {
+    blocks: [3],
+    numericOnly: true,
+    numeralDecimalMark: ''
+})
+
+new Cleave('input[name="area-code"]', {
+    blocks: [4],
+    numericOnly: true,
+    numeralDecimalMark: ''
+})
+
+new Cleave('input[name="phone-number"]', {
+    blocks: [9],
+    numericOnly: true,
+    numeralDecimalMark: ''
+})

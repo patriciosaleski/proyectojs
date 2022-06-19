@@ -9,6 +9,7 @@ addPassenger.addEventListener('click', () => {
         passengerQuantity++;
         document.getElementById('passengerQuantity').value = passengerQuantity;
         addPassengerForm(passengerQuantity);
+        setLimits();
     }
 });
 
@@ -26,9 +27,12 @@ removePassenger.addEventListener('click', () => {
 const submitButton = document.getElementById('form-submit');
 submitButton.addEventListener('click', () => {
     if (formValidation()) {
+        bookingInfo.splice(0, bookingInfo.length);
         loadTravelInfo();
         loadPassengerInfo();
         loadBookingContact();
+        generatePrices();
+        removeInputError();
         document.getElementById('error-msg').style.display = 'none';
         Swal.fire({
             icon: 'success',
@@ -38,6 +42,7 @@ submitButton.addEventListener('click', () => {
             timer: 3000,
         });
         displayFakeLoading();
+        generatePrices();
     } else {
         Swal.fire(
             'Ha ocurrido un error',
@@ -89,5 +94,24 @@ backToOrderReview.addEventListener('click', () => {
     while (bookingChildren[i].className != 'booking__payment hidden') {
         bookingChildren[i].classList.remove('hidden');
         i++;
+    }
+});
+
+
+const payButton = document.getElementById('pay-button');
+payButton.addEventListener('click', () => {
+    if (payment()){
+        removeInputError();
+        Swal.fire({
+            icon: 'success',
+            title: '¡Pago realizado correctamente!',
+            text: 'En los proximos minutos recibiras un correo con los detalles de la reserva y pasos a seguir.'
+        });
+    } else {
+        Swal.fire(
+            'Ha ocurrido un error',
+            'Los datos del pago son incorrectos, intente nuevamente.',
+            'error'
+        );
     }
 });

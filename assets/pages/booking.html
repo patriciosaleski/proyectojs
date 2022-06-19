@@ -50,7 +50,7 @@
                 </select>
                 <div>
                     <label for="date-of-travel">Fecha:</label>
-                    <input type="date" name="date-of-travel" id="travelDate">
+                    <input name="date-of-travel" id="travelDate" placeholder="AAAA-MM-DD">
                 </div>
                 <div id="travel-time"><i class="fa-regular fa-clock"></i> --</div>
                 <div class="passenger__quantity">
@@ -69,7 +69,7 @@
                 <p>Viaje: 7 Meses</p>
                 <div class="temperature-container">
                     <p>Temperatura:</p>
-                    <div class="wrapper">
+                    <div class="flex-column">
                         <p id="mars-hi-temp"></p>
                         <p id="mars-lo-temp"></p>
                     </div>
@@ -81,7 +81,7 @@
                 <p>Viaje: 4 Días</p>
                 <div class="temperature-container">
                     <p>Temperatura</p>
-                    <div class="wrapper">
+                    <div class="flex-column">
                         <p>Max 106 °C</p>
                         <p>Min -183 °C</p>
                     </div>
@@ -96,11 +96,11 @@
                 <div class="accordion__panel">
                     <div class="passenger__data--name">
                         <form>
-                            <div class="wrapper">
+                            <div class="flex-column">
                                 <label for="name">Nombres</label>
                                 <input type="text" name="name" id="passenger-1-name" placeholder="Ingrese su nombre" required>
                             </div>
-                            <div class="wrapper">
+                            <div class="flex-column">
                                 <label for="surname">Apellidos</label>
                                 <input type="text" name="surname" id="passenger-1-surname" placeholder="Ingrese su apellido" required>
                             </div>
@@ -108,12 +108,12 @@
                     </div>
                     <div class="passenger__data--birth">
                         <form>
-                            <div class="wrapper">
+                            <div class="flex-column">
                                 <label for="birthday">Fecha de nacimiento</label>
-                                <input type="date" name="birthday" id="passenger-1-birthday">
+                                <input name="birthday" class="birthday" id="passenger-1-birthday" placeholder="AAAA-MM-DD">
                             </div>
-                            <div class="passenger__data--birth--gender wrapper">
-                                <form class="wrapper">
+                            <div class="passenger__data--birth--gender flex-column">
+                                <form class="flex-column">
                                     <label for="gender">Sexo</label>
                                     <select name="gender" id="passenger-1-gender">
                                         <option value="" disabled selected>Seleccione una opción</option>
@@ -126,19 +126,19 @@
                         </form>
                     </div>
                     <div class="passenger__data--id">
-                        <form class="wrapper">
+                        <form class="flex-column">
                             <label for="document">Tipo de documento</label>
                             <select name="document" id="passenger-1-document">
                                 <option value="" disabled selected>Seleccione una opción</option>
                                 <option value="du">Documento Único</option>
                                 <option value="passport">Pasaporte</option>
                             </select>
-                        </form class="wrapper">
-                        <form class="wrapper">
+                        </form class="flex-column">
+                        <form class="flex-column">
                             <label for="id-number">Número</label>
-                            <input type="number" name="id-number" required min="1" max="120000000" id="passenger-1-document-number" placeholder="12.345.678">
+                            <input type="number" class="id-number" name="id-number" required id="passenger-1-document-number" placeholder="12.345.678">
                         </form>
-                        <form class="wrapper">
+                        <form class="flex-column">
                             <label for="nationality">Nacionalidad</label>
                             <select name="nationality" id="passenger-1-nationality">
                                 <option value="" disabled selected>Seleccione una opción</option>
@@ -162,20 +162,20 @@
         <div class="booking__contact">
             <h2>Datos de reserva</h2>
             <form>
-                <div class="wrapper">
+                <div class="flex-column">
                     <label for="email">Email</label>
                     <input type="email" name="email" id="booking-email" placeholder="ejemplo@axiom.com">
                 </div>
                 <div class="booking__contact--phone" id="contact-phone">
-                    <div class="wrapper">
+                    <div class="flex-column">
                         <label for="country-code">País</label>
                         <input type="number" name="country-code" id="country-code" placeholder="54">
                     </div>
-                    <div class="wrapper">
+                    <div class="flex-column">
                         <label for="area-code">Cod. Area</label>
-                        <input type="number" name="area-code" id="phone-area" min="1" max="9999" placeholder="111" required>
+                        <input type="number" name="area-code" id="phone-area" placeholder="111" required>
                     </div>
-                    <div class="wrapper">
+                    <div class="flex-column">
                         <label for="phone-number">Teléfono</label>
                         <input type="tel" name="phone-number" id="phone-number" min="1" placeholder="12345678" required>
                     </div>
@@ -190,37 +190,40 @@
                 <div class="booking__payment--details">
                     <p>Resumen de reserva</p>
                     <div class="item">
-                        <p>Transporte</p>
-                        <p id="transport-price">USD 6541</p>
+                        <p>Vuelo a Cabo Cañaveral</p>
+                        <p id="transport-price"></p>
                     </div>
                     <div class="item">
-                        <p>Vuelo</p>
-                        <p id="flight-price">USD 2000</p>
+                        <p id="">Viaje a Marte</p>
+                        <p id="travel-price"></p>
                     </div>
                     <div class="item">
-                        <p>Tasas Aeroportuarias</p>
-                        <p id="airport-fees">USD 254</p>
+                        <p>Tasas Aeroportuarias<i>*</i></p>
+                        <p id="airport-fees"></p>
                     </div>
                     <div class="item">
-                        <p>Tasas de Seguridad</p>
-                        <p id="security-fees">USD 124</p>
+                        <p>Tasas de Seguridad<i>*</i></p>
+                        <p id="security-fees"></p>
                     </div>
                 </div>
 
                 <div class="booking__payment--total">
                     <div class="price">
                         <p>Subtotal:</p>
-                        <p id="price-subtotal">USD 8919</p>
+                        <p id="price-subtotal"></p>
                     </div>
-                
+                    
                     <div class="price">
-                        <p>IVA 21%:</p>
-                        <p id="vat">USD 1872,99</p>
+                        <p>IVA 7%:</p>
+                        <p id="price-iva"></p>
                     </div>
-                
+
                     <div class="price">
                         <p>Total:</p>
-                        <p id="price-total">USD 10791,99</p>
+                        <div class="flex-column">
+                            <p id="price-total"></p>
+                            <i>*Por el total de pasajeros.</i>
+                        </div>
                     </div>
                 </div>
 
@@ -231,37 +234,37 @@
                 <p>Detalles del pago</p>
                 <form>
                     <label for="card-number">Numero de tarjeta</label>
-                    <input type="tel" class="card-number" name="card-number" placeholder="XXXX XXXX XXXX XXXX">
+                    <input type="tel" class="card-number" id="card-number" name="card-number" placeholder="XXXX XXXX XXXX XXXX">
                     <i id="card-type" class="fa-brands"></i>
                     <label for="card-name">Nombre en la tarjeta</label>
-                    <input type="text" name="card-name" placeholder="Nombre completo">
+                    <input type="text" name="card-name" id="card-name" placeholder="Nombre completo">
                     <div class="row">
                         <div>
                             <label>Vencimiento</label>
-                            <select name="expiration-month">
+                            <select name="expiration-month" id="expiration-month">
                                 <option value="" selected disabled>MM</option>
-                                <option value="1">01</option>
-                                <option value="2">02</option>
-                                <option value="3">03</option>
-                                <option value="4">04</option>
-                                <option value="5">05</option>
-                                <option value="6">06</option>
-                                <option value="7">07</option>
-                                <option value="8">08</option>
-                                <option value="9">09</option>
+                                <option value="01">01</option>
+                                <option value="02">02</option>
+                                <option value="03">03</option>
+                                <option value="04">04</option>
+                                <option value="05">05</option>
+                                <option value="06">06</option>
+                                <option value="07">07</option>
+                                <option value="08">08</option>
+                                <option value="09">09</option>
                                 <option value="10">10</option>
                                 <option value="11">11</option>
                                 <option value="12">12</option>
                             </select>
-                            <input type="number" id="expiration-year" placeholder="AAAA">
+                            <input type="number" name="expiration-year" id="expiration-year" placeholder="AAAA">
                         </div>
                         <div>
                             <label for="card-pin">CSC <a id="CVVHelp"><i class="fa-regular fa-circle-question"></i></a></label>
-                            <input type="number" class="card-pin" name="card-pin" placeholder="XXX">
+                            <input type="number" class="card-pin" id="card-pin" name="card-pin" placeholder="XXX">
                         </div>
                     </div>
                 </form>
-                <button id="pay">Pagar ahora</button>
+                <button id="pay-button">Pagar ahora</button>
             </div>
         </div>
 
