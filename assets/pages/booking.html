@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reserva - Axiom Space</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css" />
     <link rel="stylesheet" href="../css/main.css">
     <script src="https://kit.fontawesome.com/1aee70cc01.js" crossorigin="anonymous"></script>
 </head>
@@ -39,17 +40,17 @@
         </nav>
     </header>
 
-    <div class="booking__container">
-        <div class="destination__date">
+    <div id="booking" class="booking">
+        <div class="booking__destination--date">
             <form>
                 <select name="destination" id="destination">
-                    <option disabled>Seleccione un destino</option>
+                    <option value="" disabled selected>Seleccione un destino</option>
                     <option value="moon">Luna</option>
                     <option value="mars">Marte</option>
                 </select>
                 <div>
                     <label for="date-of-travel">Fecha:</label>
-                    <input type="date" name="date-of-travel" id="travelDate" min="2022-05-08">
+                    <input name="date-of-travel" id="travelDate" placeholder="AAAA-MM-DD">
                 </div>
                 <div id="travel-time"><i class="fa-regular fa-clock"></i> --</div>
                 <div class="passenger__quantity">
@@ -61,33 +62,45 @@
             </form>
         </div>
 
-        <div class="destination__info">
+        <div class="booking__destination--info">
             <div class="no__destination active" id="no-destination">Primero seleccione un destino...</div>
-            <div class="destination__info--mars" id="mars-select">
+            <div class="booking__destination--info--mars" id="mars-select">
                 <p>Distancia: 225.000.000 Km.</p>
                 <p>Viaje: 7 Meses</p>
-                <p>Temperatura: -24°C</p>
+                <div class="temperature-container">
+                    <p>Temperatura:</p>
+                    <div class="flex-column">
+                        <p id="mars-hi-temp"></p>
+                        <p id="mars-lo-temp"></p>
+                    </div>
+                </div>
                 <img src="../img/mars.png" alt="Foto de Marte">
             </div>
-            <div class="destination__info--moon" id="moon-select">
+            <div class="booking__destination--info--moon" id="moon-select">
                 <p>Distancia: 334.000 Km.</p>
                 <p>Viaje: 4 Días</p>
-                <p>Temperatura: -124°C</p>
+                <div class="temperature-container">
+                    <p>Temperatura</p>
+                    <div class="flex-column">
+                        <p>Max 106 °C</p>
+                        <p>Min -183 °C</p>
+                    </div>
+                </div>
                 <img src="../img/moon.png" alt="Foto de la Luna">
             </div>
         </div>
 
-        <div class="passenger__container" id="passenger__container">
-            <div class="passenger__data" id="passenger-1">
+        <div class="booking__passenger--container" id="passenger__container">
+            <div class="booking__passenger--container--data" id="passenger-1">
                 <button class="accordion">Datos del pasajero #1</button>
                 <div class="accordion__panel">
                     <div class="passenger__data--name">
                         <form>
-                            <div class="wrapper">
+                            <div class="flex-column">
                                 <label for="name">Nombres</label>
                                 <input type="text" name="name" id="passenger-1-name" placeholder="Ingrese su nombre" required>
                             </div>
-                            <div class="wrapper">
+                            <div class="flex-column">
                                 <label for="surname">Apellidos</label>
                                 <input type="text" name="surname" id="passenger-1-surname" placeholder="Ingrese su apellido" required>
                             </div>
@@ -95,56 +108,50 @@
                     </div>
                     <div class="passenger__data--birth">
                         <form>
-                            <div class="wrapper">
+                            <div class="flex-column">
                                 <label for="birthday">Fecha de nacimiento</label>
-                                <input type="date" name="birthday" id="passenger-1-birthday">
+                                <input name="birthday" class="birthday" id="passenger-1-birthday" placeholder="AAAA-MM-DD">
                             </div>
-                            <div class="passenger__data--birth--gender wrapper">
-                                Sexo
-                                <div class="container">
-                                    <div>
-                                        <label for="gender">Hombre</label>
-                                        <input type="radio" name="passenger-1-gender" value="male">
-                                    </div>
-                                    <div>
-                                        <label for="gender">Mujer</label>
-                                        <input type="radio" name="passenger-1-gender" value="female">
-                                    </div>
-                                    <div>
-                                        <label for="gender">Otro</label>
-                                        <input type="radio" name="passenger-1-gender" value="other">
-                                    </div>
-                                </div>
+                            <div class="passenger__data--birth--gender flex-column">
+                                <form class="flex-column">
+                                    <label for="gender">Sexo</label>
+                                    <select name="gender" id="passenger-1-gender">
+                                        <option value="" disabled selected>Seleccione una opción</option>
+                                        <option value="male">Hombre</option>
+                                        <option value="female">Mujer</option>
+                                        <option value="other">Otro</option>
+                                    </select>
+                                </form>
                             </div>
                         </form>
                     </div>
                     <div class="passenger__data--id">
-                        <form class="wrapper">
+                        <form class="flex-column">
                             <label for="document">Tipo de documento</label>
                             <select name="document" id="passenger-1-document">
-                                <option disabled>Seleccione una opción</option>
+                                <option value="" disabled selected>Seleccione una opción</option>
                                 <option value="du">Documento Único</option>
                                 <option value="passport">Pasaporte</option>
                             </select>
-                        </form class="wrapper">
-                        <form class="wrapper">
+                        </form class="flex-column">
+                        <form class="flex-column">
                             <label for="id-number">Número</label>
-                            <input type="number" required min="1" max="120000000" id="passenger-1-document-number">
+                            <input type="number" class="id-number" name="id-number" required id="passenger-1-document-number" placeholder="12.345.678">
                         </form>
-                        <form class="wrapper">
+                        <form class="flex-column">
                             <label for="nationality">Nacionalidad</label>
                             <select name="nationality" id="passenger-1-nationality">
-                                <option>Seleccione una opción</option>
+                                <option value="" disabled selected>Seleccione una opción</option>
                                 <option value="argentina">Argentina</option>
                                 <option value="bolivia">Boliviana</option>
+                                <option value="brazil">Brasileña</option>
+                                <option value="chile">Chilena</option>
+                                <option value="colombia">Colombiana</option>
+                                <option value="ecuador">Ecuatoriana</option>
                                 <option value="paraguay">Paraguaya</option>
                                 <option value="peru">Peruana</option>
-                                <option value="chile">Chilena</option>
                                 <option value="uruguay">Uruguaya</option>
-                                <option value="ecuador">Ecuatoriana</option>
-                                <option value="colombia">Colombiana</option>
                                 <option value="venezuela">Venezolana</option>
-                                <option value="brazil">Brasileña</option>
                             </select>
                         </form>
                     </div>
@@ -155,23 +162,122 @@
         <div class="booking__contact">
             <h2>Datos de reserva</h2>
             <form>
-                <div class="wrapper">
+                <div class="flex-column">
                     <label for="email">Email</label>
                     <input type="email" name="email" id="booking-email" placeholder="ejemplo@axiom.com">
                 </div>
-                <div class="booking__contact--phone">
-                    <div class="wrapper">
-                        <label for="area-code">Cod. Area</label>
-                        <input type="number" name="area-code" id="phone-area" min="1" max="9999" placeholder="111" required>
+                <div class="booking__contact--phone" id="contact-phone">
+                    <div class="flex-column">
+                        <label for="country-code">País</label>
+                        <input type="number" name="country-code" id="country-code" placeholder="54">
                     </div>
-                    <div class="wrapper">
+                    <div class="flex-column">
+                        <label for="area-code">Cod. Area</label>
+                        <input type="number" name="area-code" id="phone-area" placeholder="111" required>
+                    </div>
+                    <div class="flex-column">
                         <label for="phone-number">Teléfono</label>
-                        <input type="tel" name="phone-number" id="phone-number" min="1" placeholder="1234-5678" required>
+                        <input type="tel" name="phone-number" id="phone-number" min="1" placeholder="12345678" required>
                     </div>
                 </div>
             </form>
         </div>
-        <button id="form-submit">Finalizar Reserva</button>
+
+        <button class="form--submit" id="form-submit">Finalizar Reserva</button>
+        
+        <div id="payment--form" class="booking__payment hidden">
+            <div>
+                <div class="booking__payment--details">
+                    <p>Resumen de reserva</p>
+                    <div class="item">
+                        <p>Vuelo a Cabo Cañaveral</p>
+                        <p id="transport-price"></p>
+                    </div>
+                    <div class="item">
+                        <p id="">Viaje a Marte</p>
+                        <p id="travel-price"></p>
+                    </div>
+                    <div class="item">
+                        <p>Tasas Aeroportuarias<i>*</i></p>
+                        <p id="airport-fees"></p>
+                    </div>
+                    <div class="item">
+                        <p>Tasas de Seguridad<i>*</i></p>
+                        <p id="security-fees"></p>
+                    </div>
+                </div>
+
+                <div class="booking__payment--total">
+                    <div class="price">
+                        <p>Subtotal:</p>
+                        <p id="price-subtotal"></p>
+                    </div>
+                    
+                    <div class="price">
+                        <p>IVA 7%:</p>
+                        <p id="price-iva"></p>
+                    </div>
+
+                    <div class="price">
+                        <p>Total:</p>
+                        <div class="flex-column">
+                            <p id="price-total"></p>
+                            <i>*Por el total de pasajeros.</i>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="back" id="back-to-order-review"><i class="fa-solid fa-arrow-left"></i> Volver atrás</button>
+            </div>
+
+            <div class="booking__payment--card">
+                <p>Detalles del pago</p>
+                <form>
+                    <label for="card-number">Numero de tarjeta</label>
+                    <input type="tel" class="card-number" id="card-number" name="card-number" placeholder="XXXX XXXX XXXX XXXX">
+                    <i id="card-type" class="fa-brands"></i>
+                    <label for="card-name">Nombre en la tarjeta</label>
+                    <input type="text" name="card-name" id="card-name" placeholder="Nombre completo">
+                    <div class="row">
+                        <div>
+                            <label>Vencimiento</label>
+                            <select name="expiration-month" id="expiration-month">
+                                <option value="" selected disabled>MM</option>
+                                <option value="01">01</option>
+                                <option value="02">02</option>
+                                <option value="03">03</option>
+                                <option value="04">04</option>
+                                <option value="05">05</option>
+                                <option value="06">06</option>
+                                <option value="07">07</option>
+                                <option value="08">08</option>
+                                <option value="09">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                            </select>
+                            <input type="number" name="expiration-year" id="expiration-year" placeholder="AAAA">
+                        </div>
+                        <div>
+                            <label for="card-pin">CSC <a id="CVVHelp"><i class="fa-regular fa-circle-question"></i></a></label>
+                            <input type="number" class="card-pin" id="card-pin" name="card-pin" placeholder="XXX">
+                        </div>
+                    </div>
+                </form>
+                <button id="pay-button">Pagar ahora</button>
+            </div>
+        </div>
+
+        <div id="error-msg">
+        </div>
+        
+        <div id="fake-loading" class="wrap hidden">
+            <div class="loader">Loading</div>
+            Cargando
+        </div>
+
+
+
     </div>
 
     <footer>
@@ -189,6 +295,13 @@
             </div>
         </div>
     </footer>
-    <script src="../../main.js"></script>
+    <!-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.17/dist/sweetalert2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/cleave.js@1.6.0/dist/cleave.min.js"></script>
+    <script src="../scripts/booking.js"></script>
+    <script src="../scripts/api.js"></script>
+    <script src="../scripts/classes.js"></script>
+    <script src="../scripts/formValidation.js"></script>
+    <script src="../scripts/events.js"></script>
 </body>
 </html>

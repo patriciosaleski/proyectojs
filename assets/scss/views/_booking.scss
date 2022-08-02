@@ -1,20 +1,27 @@
 body {
-    .booking__container {
-        @include flex(column, $gap: 4rem);
+    .booking {
+        @include flex(column, $align: center, $gap: 4rem);
         @include primary-font(2em, white);
-        margin: 6rem auto;
+        margin: 8rem auto;
 
-        .destination {
-            &__date, &__info {
-                @include push--auto;
-                background: rgba(87, 87, 87, 0.4);
-                @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
-                    @include planet--blur();
-                    background: rgba(87, 87, 87, 0.2);
-                }
+        input, select, button {
+            background-color: map-get($input-styles, background);
+            border: map-get($input-styles, border) .1rem solid;
+            border-radius: .6rem;
+            color: map-get($input-styles, text);
+        }
+
+        &__destination--date, &__destination--info, &__contact, .accordion__panel {
+            background: rgba(87, 87, 87, 0.4);
+            @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+                @include planet--blur();
+                background: rgba(87, 87, 87, 0.2);
             }
+        }
 
-            &__date {
+        &__destination {
+
+            &--date {
                 @include flex($justify: center, $align: center);
                 @include size(50vw, 7rem);
                 form {
@@ -27,29 +34,16 @@ body {
                     select {
                         @include size(20rem, 3rem);
                         padding: 0 0.6rem;
-                        background-color: rgba(24, 24, 24, 0.774);
-                        border: rgba($color: #FFF, $alpha: .40) .1rem solid;
-                        border-radius: .6rem;
-                        color: white;
                     }
 
                     input {
+                        @include size(15rem, 3rem);
                         text-align: center;
-                        background-color: rgba(24, 24, 24, 0.774);
-                        border: rgba($color: #FFF, $alpha: .40) .1rem solid;
-                        border-radius: .6rem;
-
-                        &[type=date] {
-                            @include size(15rem, 3rem);
-                            color: white
-                        }
 
                         &[type=button] {
                             @include size(2.6rem, 2.6rem);
                             border-radius: 50%;
-                            border: white 0.1rem solid;
                             font-size: 1em;
-                            color: white;
                             background-color: gray;
                             transition: all .4s ease;
 
@@ -69,9 +63,13 @@ body {
                 }
             }
 
-            &__info {
+            &--info {
                 @include size(50vw, 10rem);
                 @include flex(row, center, center);
+
+                .temperature-container {
+                    @include flex($align: center, $gap: 1.6rem);
+                }
 
                 &--moon, &--mars, .no__destination {
                     display: none;
@@ -87,154 +85,127 @@ body {
             }
         }
 
-        .passenger {
-            &__container {
-                @include push--auto;
+        &__passenger {
+            &--container {
                 @include flex(column, $gap: 2rem);
-            }
 
-            &__data {
-                .accordion {
-                    @include primary-font(1.4em, white, $align: left);
-                    @include size(50vw, 5rem);
-                    @include flex($justify:space-between, $align: center);
-                    padding-left: 1rem;
-                    background-color: rgba(87, 87, 87, 0.4);
-                    border: none;
-                    transition: all .4s ease;
-
-                    &::after {
-                        content: '+';
-                        font-size: 120%;
-                        color: white;
-                        margin-right: .8rem;
-                    }
-
-                    &.open, &:hover {
-                        background-color: rgba(100, 100, 100, 0.664);
-                    }
-
-                    &.open::after {
-                        content: '-';
-                    }
-
-                    &__panel {
-                        @include grid(1, 4, $rsize: auto, $rgap: 3rem);
-                        @include push--auto;
-                        background: rgba(87, 87, 87, 0.4);
-                        @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
-                            @include planet--blur();
+                &--data {
+                    .accordion {
+                        @include primary-font(1.4em, white, $align: left);
+                        @include size(50vw, 5rem);
+                        @include flex($justify:space-between, $align: center);
+                        background-color: rgba(87, 87, 87, 0.4);
+                        padding-left: 1rem;
+                        border: none;
+                        transition: all .4s ease;
+    
+                        &::after {
+                            content: '+';
+                            font-size: 120%;
+                            color: white;
+                            margin-right: .8rem;
+                        }
+    
+                        &.open, &:hover {
+                            background-color: rgba(100, 100, 100, 0.664);
+                        }
+    
+                        &.open::after {
+                            content: '-';
+                        }
+    
+                        &__panel {
+                            @include grid(1, 4, $rsize: auto, $rgap: 3rem);
+                            @include push--auto;
+                            @include size(50vw);
                             background: rgba(87, 87, 87, 0.2);
-                        }
-                        @include size(50vw);
-                        justify-items: center;
-                        padding: 4rem 0 2rem 0;
-                        display: none;
-                    }
-                }
+                            justify-items: center;
+                            padding: 4rem 0 2rem 0;
+                            display: none;
 
-                .wrapper {
-                    @include flex(column, $gap: .5rem);
-                }
+                            .passenger__data {
+                                &--name {
+                                    width: 100%;
+                
+                                    form {
+                                        @include flex($justify: space-evenly);
+                
+                                        input {
+                                            @include size(30rem, 3rem);
+                                            padding-left: 1rem;
+                
+                                            &::placeholder {color: white}
+                                        }
+                                    }
+                                }
+                
+                                &--birth {
+                                    width: 100%;
+                
+                                    form {
+                                        @include flex($justify: space-evenly);
+                
+                                        input {
+                                            @include size(30rem, 3rem);
+                                            padding-left: 1rem;
+                                        }
+                                    }
+                
+                                    &--gender {
+                                        label {font-size: 1em;}
 
-                h2 {justify-self: start}
-
-                label {font-size: 1em;}
-
-                &--name {
-                    width: 100%;
-
-                    form {
-                        @include flex($justify: space-evenly);
-
-                        input {
-                            @include size(30rem, 3rem);
-                            background-color: rgba(24, 24, 24, 0.774);
-                            border: rgba($color: #FFF, $alpha: .40) .1rem solid;
-                            border-radius: .6rem;
-                            padding-left: 1rem;
-                            color: white;
-
-                            &::placeholder {color: white}
-                        }
-                    }
-                }
-
-                &--birth {
-                    width: 100%;
-
-                    form {
-                        @include flex($justify: space-evenly);
-
-                        input {
-                            &[type=date] {
-                                @include size(30rem, 3rem);
-                                background-color: rgba(24, 24, 24, 0.774);
-                                border: rgba($color: #FFF, $alpha: .40) .1rem solid;
-                                border-radius: .6rem;
-                                padding-left: 1rem;
-                                color: white;
+                                        select {
+                                            @include size(30rem, 3rem);
+                                            padding-left: 1rem;
+                                        }
+                
+                                        .container {
+                                            @include flex($align: center, $gap: 1.4rem);
+                                            @include size(30rem, 3rem);
+                                            div {@include flex($align: center, $gap: .5rem);}
+                                        }
+                                    }
+                                }
+                
+                                &--id {
+                                    @include flex($justify: space-evenly);
+                                    width: 100%;
+                
+                                    form {
+                                        input, select {
+                                            @include size(19rem, 3rem);
+                                            padding-left: 1rem;
+                                        }
+                
+                                        &.wrapper:not(:first-child):not(:last-child) input {
+                                            width: 11rem;
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
-
-                    &--gender {
-                        label {font-size: .8em;}
-
-                        .container {
-                            @include flex($align: center, $gap: 1.4rem);
-                            @include size(30rem, 3rem);
-                            input[type=radio] {
-                                @include size(1.6rem, 1.6rem);
-                            }
-
-                            div {@include flex($align: center, $gap: .5rem);}
-                        }
-                    }
-                }
-
-                &--id {
-                    @include flex($justify: space-evenly);
-                    width: 100%;
-
-                    form {
-                        input, select {
-                            @include size(19rem, 3rem);
-                            background-color: rgba(24, 24, 24, 0.774);
-                            border: rgba($color: #FFF, $alpha: .40) .1rem solid;
-                            border-radius: .6rem;
-                            padding-left: 1rem;
-                            color: white;
-                        }
-
-                        &.wrapper:not(:first-child):not(:last-child) input {
-                            width: 11rem;
-                        }
-                    }
+    
+                    h2 {justify-self: start}
+    
+                    label {font-size: 1em;}
+    
                 }
             }
         }
 
-        .booking__contact {
-            @include grid(1, 2, $rsize: auto, $rgap: 2rem);
-            @include push--auto;
-            background: rgba(87, 87, 87, 0.4);
-            @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
-                @include planet--blur();
-                background: rgba(87, 87, 87, 0.2);
-            }
+        &__contact {
+            @include flex(column);
             @include size(50vw);
             padding: 1rem 2rem 3rem 2rem;
 
             form {
                 @include flex($justify: space-evenly);
+                margin-top: 3rem;
+                width: 100%;
 
                 input {
-                    background-color: rgba(24, 24, 24, 0.774);
-                    border: rgba($color: #FFF, $alpha: .40) .1rem solid;
-                    border-radius: .6rem;
                     padding-left: 1rem;
-                    color: white;
                     
                     &::placeholder {color: white;}
 
@@ -261,18 +232,249 @@ body {
             }
         }
 
-        #form-submit {
+        &__payment {
+            @include flex($align:center);
+            margin: 2rem 0;
+
+            &--details {
+                @include flex(column, $align: center);
+                @include size(40rem, auto);
+                background: rgba(87, 87, 87, 0.4);
+                @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+                    @include planet--blur();
+                    background: rgba(87, 87, 87, 0.2);
+                }
+                padding: 3rem 3rem 0;
+
+                > p {
+                    @include primary-font(1.5em);
+                    margin-bottom: 3rem;
+                }
+
+                .item {
+                    @include flex($justify: space-between);
+                    width: 100%;
+                    border-bottom: .2rem solid rgba(255, 255, 255, 0.2);
+                    margin-bottom: 2rem;
+                    padding-bottom: 1rem;
+
+                    &:nth-child(5){
+                        border: none;
+                    }
+
+                    p {
+                        @include primary-font(.8em, $weight: light);
+
+                        &::before {
+                            content: 'USD ';
+                        }
+                    }
+                }
+            }
+
+            &--total {
+                @include flex(column, $align: center);
+                background: rgba(196, 196, 196, 0.4);
+                @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+                    @include planet--blur();
+                    background: rgba(255, 255, 255, 0.2);
+                }
+                padding: 1rem 3rem;
+
+                .price {
+                    @include flex($justify: space-between);
+                    width: 100%;
+
+                    .flex-column {
+                        align-items: flex-end;
+                    }
+
+                    i {
+                        font-size: .6em;
+                        font-weight: map-get($font--weight, light);
+                    }
+
+                    &:nth-child(-n+2) {
+                        font-size: .8em;
+                        margin-bottom: .5rem;
+                    }
+
+                    &:nth-child(2){
+                        font-style: italic;
+                        font-weight: map-get($font--weight, light);
+                    }
+
+                    &:last-of-type {
+                        font-size: 1.2em;
+                        font-weight: map-get($font--weight, bold);
+                        margin-top: 1rem;
+                    }
+                }
+            }
+
+            &--card {
+                @include flex(column);
+                @include size(50rem, auto);
+                background: rgba(87, 87, 87, 0.4);
+                @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+                    @include planet--blur();
+                    background: rgba(87, 87, 87, 0.2);
+                }
+                box-shadow: -6px 0px 9px -3px rgba(0,0,0,0.8);
+                padding: 4rem 6rem;
+
+                p {
+                    @include primary-font(1.6em, $align: center);
+                    width: 100%;
+                    margin-bottom: 4rem;
+                }
+
+                form {
+                    width: 100%;
+
+                    i#card-type {
+                        font-size: 1.5em;
+                        position: absolute;
+                        right: 66px;
+                        top: 165px;
+                    }
+
+                    @-moz-document url-prefix() {
+                        i#card-type {
+                            font-size: 1.5em;
+                            position: absolute;
+                            right: 576px;
+                            top: 398px;
+                        }
+                    }
+
+                    label {
+                        display: block;
+                    }
+
+                    input {
+                        @include primary-font(.9em, $weight: light);
+                        @include size(100%, 4rem);
+                        padding-left: 1rem;
+                        margin: 1rem 0 3rem 0;
+
+                        &:first-of-type {
+                            margin: 1rem 0 1rem 0;
+                        }
+                    }
+
+                    
+
+                    .row {
+                        @include flex($justify: space-between);
+
+                        input, select {
+                            @include size(8rem, 4rem);
+                            @include primary-font(.9em, $weight: light);
+                            margin: 1rem 0;
+                        }
+
+                        input {
+                            padding: 0;
+                            text-align: center;
+                            margin: 1rem 0;
+                        }
+
+                        a:hover {
+                            cursor: pointer;
+                        }
+                    }
+                }
+
+                button {
+                    @include size(100%, 5rem);
+                    @include primary-font(1.2em, $weight: light);
+                    background-color: map-get($status-color, success);
+                    border: none;
+                    margin-top: 4rem;
+                    transition: all .1s ease-in;
+
+                    &:hover {
+                        transform: scale(1.1);
+                        border: .1rem solid white;
+                    }
+                }
+            }
+
+            button.back {
+                @include size(100%, auto);
+                @include primary-font(1.2em);
+                font-weight: map-get($font--weight , light);
+                border: none;
+                border-radius: 0;
+                padding: 1rem 0;
+                background-color: rgba($color: map-get($status-color , warning), $alpha: .5);
+                transition: all .15s ease-in;
+
+                &:hover {
+                    background-color: rgba($color: map-get($status-color , warning), $alpha: .8);
+                }
+            }
+        }
+
+        button.form--submit {
             @include size(20rem, 4rem);
             @include primary-font(1em, white);
-            @include push--auto;
-            border: #FFF .1rem solid;
-            border-radius: 1rem;
-            background-color: rgba(24, 24, 24, 0.774);
+            
+            border-radius: 3rem;
             transition: all .4s ease;
 
             &:hover {
                 background-color: rgba(100, 100, 100, 0.664);
             }
+        }
+
+        #error-msg {
+            @include size(50vw, auto);
+            @include primary-font(.8em, $color: red, $align: center);
+            @include push--auto();
+            padding: 1rem;
+            background-color: rgba(22, 22, 22, 0.664);
+            border: .1rem solid red;
+            display: none;
+        }
+
+        .wrap {
+            @include flex($justify: center, $align: center);
+            @include size(90vw, 60.8vh);
+        }
+
+        .flex-column {
+            @include flex(column, $gap: .5rem);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .loader {
+            @include transform(translateZ(0));
+            @include animation(loading, 1s, linear, infinite);
+            @include size(100vw, 65vh);
+            font-size: 1em;
+            position: fixed;
+            text-indent: -9999em;
+            border-top: .7em solid rgba(255, 255, 255, 0.2);
+            border-right: .7em solid rgba(255, 255, 255, 0.2);
+            border-bottom: .7em solid rgba(255, 255, 255, 0.2);
+            border-left: .7em solid #ffffff;
+            background-color: rgba(25,25,25, .6);
+            z-index: -1;
+
+            &, &:after {
+                @include size(10em, 10em);
+                border-radius: 50%;
+            }
+        }
+
+        @include keyframes(loading) {
+            0% {@include transform(rotate(0deg));}
+            100% {@include transform(rotate(360deg));}
         }
 
         // Cambia el color del icono para seleccionar la fecha de nacimiento
@@ -293,5 +495,8 @@ body {
             -moz-appearance: textfield;
         }
     }
-}
 
+    .input-error {
+        border: map-get($status-color, error) .1rem solid!important;
+    }
+}

@@ -27,13 +27,6 @@
     @if $height { height: $height;}
 }
 
-$font--weight: (
-    light: 300,
-    regular: 400,
-    semi: 500,
-    bold: 700
-);
-
 @mixin primary-font ($size: false, $color: false, $weight: false, 
                     $align:false, $lh: false, $ls: false){
     font-family: 'Noto Sans', sans-serif;
@@ -54,4 +47,22 @@ $font--weight: (
 @mixin planet--blur {
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
+}
+
+@mixin keyframes($name) {
+    @-webkit-keyframes #{$name} {@content};
+    @-moz-keyframes #{$name} {@content};
+    @-ms-keyframes #{$name} {@content};
+    @keyframes #{$name} {@content};
+}
+
+@mixin transform($value) {
+    -webkit-transform: $value;
+    -ms-transform: $value;
+    transform: $value;
+}
+
+@mixin animation($name, $duration, $function, $count) {
+    -webkit-animation: $name $duration $function $count;
+    animation: $name $duration $function $count;
 }

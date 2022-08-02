@@ -8,6 +8,11 @@ header {
         margin-top: 3rem;
         @include flex($justify:space-between, $align:center);
 
+        &__logo a img:hover {
+            transform: translatey(0px);
+            animation: float 2s ease-in-out infinite;
+        }
+
         &__menu {
             @include flex();
             padding: 3rem 20rem 3rem 5rem;
